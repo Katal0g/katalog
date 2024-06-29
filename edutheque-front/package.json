@@ -12,5 +12,8 @@
   "dependencies": {
     "nuxt": "^3.12.2",
     "vue": "latest"
+  },
+  "devDependencies": {
+    "@unocss/nuxt": "^0.61.0"
   }
 }
