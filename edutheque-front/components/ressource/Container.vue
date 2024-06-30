@@ -3,7 +3,11 @@ import { type Ressource } from "~/models";
 import { generateResources } from "~/utils/faker";
 
 const length = 20;
-const ressources = ref<Ressource[]>(generateResources(length));
+const ressources = ref<Ressource[]>([]);
+
+onMounted(() => {
+  ressources.value = generateResources(length);
+});
 </script>
 
 <template>
