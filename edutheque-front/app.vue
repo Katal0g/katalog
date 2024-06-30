@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-4 flex justify-center m-a">
+  <div class="mx-4 m-a">
     <NuxtPage />
   </div>
 </template>

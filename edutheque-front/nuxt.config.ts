@@ -6,4 +6,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   modules: ["@unocss/nuxt", "@nuxt/ui"],
+  ui: {
+    icons: ['mdi', 'heroicons']
+  }
 });
