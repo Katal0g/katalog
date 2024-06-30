@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <UContainer class="mt-6 flex flex-wrap justify-center gap-6">
+  <UContainer class="mt-6 flex flex-wrap justify-center gap-6 max-w-9xl">
     <RessourceCard
       v-for="ressource in ressources"
       :key="ressource.title"
