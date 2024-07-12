@@ -1,26 +1,15 @@
 <script setup lang="ts">
-const filters = [
-  {
-    label: "Histoire",
-    icon: "i-heroicons-book-open",
-  },
-  {
-    label: "Techno",
-    icon: "i-heroicons-calculator",
-  },
-  {
-    label: "Français",
-    icon: "i-heroicons-book-open",
-  },
-  {
-    label: "SVT",
-    icon: "i-heroicons-beaker",
-  },
-];
+// Generate filters array using the centralized object
+import { type Subject, subjectIcons, subjects } from "~/models";
+
+const filters = subjects.map((subject) => ({
+  label: subject,
+  icon: subjectIcons[subject as Subject] || "i-heroicons-academic-cap",
+}));
 </script>
 
 <template>
-  <UContainer class="mt-4 flex justify-center gap-3">
+  <UContainer class="mt-4 py-2 flex overflow-auto justify-center gap-3">
     <FilterButton
       v-for="filter in filters"
       :key="filter.label"
