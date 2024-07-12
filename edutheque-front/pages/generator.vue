@@ -42,11 +42,20 @@
       </UForm>
     </UCard>
 
-    <UCard v-if="currentContent" class="w-full">
+    <UCard class="w-full">
       <template #header>
-        <h2 class="text-xl font-semibold">Contenu Généré</h2>
+        <h2 class="text-xl font-semibold">📚 Contenu</h2>
       </template>
-      <div v-html="formattedContent"></div>
+      <div class="italic text-gray" v-if="!formattedContent && !loading">
+        Votre contenu sera affiché ici
+      </div>
+      <div class="text-center" v-if="loading">
+        <span class="italic text-gray">
+          Nos petits robots travaillent dur pour générer le contenu...
+        </span>
+        <UProgress size="md" animation="swing" />
+      </div>
+      <div v-else v-html="formattedContent"></div>
     </UCard>
   </UContainer>
 </template>
