@@ -1,9 +1,13 @@
 export default defineAppConfig({
   ui: {
-    primary: "blue",
+    primary: "indigo",
     gray: "slate",
     icons: {
-      dynamic: true
-    }
+      dynamic: true,
+    },
+    notifications: {
+      position: "top-0 bottom-auto",
+      width: "w-96",
+    },
   },
 });

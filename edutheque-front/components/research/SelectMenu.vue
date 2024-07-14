@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import type { PropType } from "vue";
 
 const props = defineProps({
@@ -20,18 +20,18 @@ watch(localModel, (newValue) => {
 
 <template>
   <USelectMenu
-      v-model="localModel"
-      :options="options"
-      multiple
-      searchable
-      :searchable-placeholder="searchablePlaceholder"
-      :placeholder="placeholder"
-      class="w-full md:w-48"
+    v-model="localModel"
+    :options="options"
+    multiple
+    searchable
+    :searchable-placeholder="searchablePlaceholder"
+    :placeholder="placeholder"
+    class="w-full md:w-48"
   >
     <template #label>
-      <span v-if="localModel.length" class="text-ellipsis truncate">{{
-          localModel.join(", ")
-        }}</span>
+      <span v-if="localModel.length" class="text-ellipsis truncate">
+        {{ localModel.join(", ") }}
+      </span>
     </template>
   </USelectMenu>
 </template>

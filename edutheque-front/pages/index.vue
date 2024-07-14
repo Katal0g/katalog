@@ -2,7 +2,6 @@
 
 <template>
   <div class="mb-4">
-    <Navbar />
     <ResearchContainer />
     <UDivider class="mt-6" />
     <FilterContainer />

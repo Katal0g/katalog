@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // Generate filters array using the centralized object
-import { type Subject, subjectIcons, subjects } from "~/models";
+import { type Subject, subjectIcons, SUBJECTS } from "~/models";
 
-const filters = subjects.map((subject) => ({
+const filters = SUBJECTS.map((subject) => ({
   label: subject,
   icon: subjectIcons[subject as Subject] || "i-heroicons-academic-cap",
 }));

@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <div
-      class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shadow-none transition border-1 hover:border-slate-4 flex flex-col justify-between p-4 rounded-lg"
+    class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shadow-none transition border-1 hover:border-slate-4 flex flex-col justify-between p-4 rounded-lg"
   >
     <div>
       <div class="flex">
@@ -41,21 +41,20 @@ defineProps({
     </div>
     <div class="flex flex-wrap gap-2 pt-2">
       <UButton
-          icon="i-heroicons-information-circle"
-          variant="soft"
-          color="gray"
-          class="h-10 flex-grow justify-center"
-          label="Plus d'infos"
+        icon="i-heroicons-information-circle"
+        variant="soft"
+        color="gray"
+        class="h-10 flex-grow justify-center"
+        label="Plus d'infos"
       />
       <UButton
-          icon="i-heroicons-arrow-down-tray-20-solid"
-          class="h-10 flex-grow justify-center"
-          label="Importer"
+        icon="i-heroicons-arrow-down-tray-20-solid"
+        class="h-10 flex-grow justify-center"
+        label="Utiliser"
+        variant="soft"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
