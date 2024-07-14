@@ -28,23 +28,25 @@ const saveFile = () => {
   <UCard class="w-full">
     <template #header>
       <div class="flex justify-between">
-        <h2 class="text-xl font-semibold">📚 Contenu</h2>
+        <h2 class="text-xl font-semibold">
+          📚 {{ $t("generatorPage.content") }}
+        </h2>
         <UButton
           icon="i-heroicons-arrow-down-tray-20-solid"
           @click="saveFile"
           variant="soft"
           :disabled="props.content === ''"
         >
-          Exporter
+          {{ $t("generatorPage.export") }}
         </UButton>
       </div>
     </template>
     <div class="italic text-gray" v-if="!props.content && !props.loading">
-      Votre contenu sera affiché ici
+      {{ $t("generatorPage.contentPlaceholder") }}
     </div>
     <div class="text-center" v-if="props.loading">
       <span class="italic text-gray">
-        Nos petits robots travaillent dur pour générer le contenu...
+        {{ $t("generatorPage.robotsWorking") }}
       </span>
       <UProgress size="md" class="lg:w-1/3 m-auto mt-2" animation="swing" />
     </div>

@@ -6,23 +6,39 @@
     :schema="schema"
     :validate="validate"
   >
-    <UFormGroup label="Niveau" name="level" required>
+    <UFormGroup :label="$t('scholar.level')" name="level" required>
       <USelect
         v-model="state.level"
         :options="levels"
-        placeholder="Sélectionnez un niveau"
+        :placeholder="
+          $t('utils.select', { field: $t('scholar.level').toLowerCase() })
+        "
       />
     </UFormGroup>
 
-    <UFormGroup label="Matière" name="subject" required>
-      <UInput v-model="state.subject" placeholder="Entrez la matière" />
+    <UFormGroup :label="$t('scholar.subject')" name="subject" required>
+      <UInput
+        v-model="state.subject"
+        :placeholder="
+          $t('utils.select', { field: $t('scholar.subject').toLowerCase() })
+        "
+      />
     </UFormGroup>
 
-    <UFormGroup label="Titre" name="title" required>
-      <UInput v-model="state.title" placeholder="Entrez le titre du sujet" />
+    <UFormGroup :label="$t('scholar.title')" name="title" required>
+      <UInput
+        v-model="state.title"
+        :placeholder="
+          $t('utils.enter', { field: $t('scholar.title').toLowerCase() })
+        "
+      />
     </UFormGroup>
 
-    <UFormGroup label="Nb questions" name="nbQuestions" required>
+    <UFormGroup
+      :label="$t('generatorPage.nbQuestions')"
+      name="nbQuestions"
+      required
+    >
       <UInput type="number" placeholder="5" v-model="state.nbQuestions" />
     </UFormGroup>
 
@@ -34,7 +50,7 @@
       icon="i-heroicons-plus-circle"
       :loading="loading"
     >
-      Générer le contenu
+      {{ $t("generatorPage.generateContent") }}
     </UButton>
   </UForm>
 </template>

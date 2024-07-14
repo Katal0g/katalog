@@ -10,32 +10,51 @@ const subjectListSelected = ref<string[]>([]);
   <UContainer
     class="mt-4 flex h-fit w-full flex-col justify-center gap-3 border p-4 rounded-4 md:flex-row lg:w-fit"
   >
-    <UFormGroup label="Titre">
-      <UInput placeholder="Rechercher par titre" />
+    <UFormGroup :label="$t('scholar.title')">
+      <UInput
+        :placeholder="
+          $t('utils.search', { field: $t('scholar.title').toLowerCase() })
+        "
+      />
     </UFormGroup>
     <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup label="Niveaux">
+    <UFormGroup :label="$t('scholar.level')">
       <ResearchSelectMenu
         v-model="levelListSelected"
         :options="LEVELS.map((level) => level.label)"
-        searchable-placeholder="Quel(s) niveau(x) ?"
-        placeholder="Rechercher par niveau(x)"
+        :searchable-placeholder="
+          $t('utils.search', { field: $t('scholar.level').toLowerCase() })
+        "
+        :placeholder="
+          $t('utils.search', { field: $t('scholar.level').toLowerCase() })
+        "
       />
     </UFormGroup>
     <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup label="Matières">
+    <UFormGroup :label="$t('scholar.subject')">
       <ResearchSelectMenu
         v-model="subjectListSelected"
         :options="SUBJECTS"
-        searchable-placeholder="Quelle(s) matière(s) ?"
-        placeholder="Rechercher par matière(s)"
+        :searchable-placeholder="
+          $t('utils.search', { field: $t('scholar.subject').toLowerCase() })
+        "
+        :placeholder="
+          $t('utils.search', { field: $t('scholar.subject').toLowerCase() })
+        "
       />
     </UFormGroup>
     <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup label="Auteur">
-      <UInput placeholder="Quel auteur ?" />
+    <UFormGroup :label="$t('researchPage.author')">
+      <UInput
+        :placeholder="
+          $t('utils.search', { field: $t('researchPage.author').toLowerCase() })
+        "
+      />
     </UFormGroup>
-    <UButton label="Rechercher" icon="i-heroicons-magnifying-glass" />
+    <UButton
+      :label="$t('researchPage.search')"
+      icon="i-heroicons-magnifying-glass"
+    />
   </UContainer>
 </template>
 
