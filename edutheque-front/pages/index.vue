@@ -5,7 +5,7 @@
     <ResearchContainer />
     <UDivider class="mt-6" />
     <FilterContainer />
-    <RessourceContainer />
+    <ResourceContainer />
   </div>
 </template>
 

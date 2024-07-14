@@ -4,7 +4,7 @@ export default defineI18nConfig(() => ({
   messages: {
     en: {
       generator: "Generator",
-      ressources: "Resources",
+      resources: "Resources",
       help: "Help",
       generatorPage: {
         content: "Content",
@@ -36,7 +36,7 @@ export default defineI18nConfig(() => ({
     },
     fr: {
       generator: "Générateur",
-      ressources: "Ressources",
+      resources: "Ressources",
       help: "Aide",
       generatorPage: {
         content: "Contenu",

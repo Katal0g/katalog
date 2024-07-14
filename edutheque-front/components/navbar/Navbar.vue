@@ -29,7 +29,7 @@ watch(languageSelected, (newValue: LanguageType) => {
   <nav class="hidden mx-4 mt-4 pb-2 mb-4 md:flex justify-between border-b">
     <div>edutheque</div>
     <div class="flex gap-4">
-      <NavLink to="/" :text="$t('ressources')" />
+      <NavLink to="/" :text="$t('resources')" />
       <NavLink to="generator" :text="$t('generator')" />
     </div>
     <div class="flex gap-2">

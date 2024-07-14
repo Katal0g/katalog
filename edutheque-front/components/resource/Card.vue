@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { Ressource } from "~/models";
+import type { Resource } from "~/models";
 
 const props = defineProps({
-  ressource: {
-    type: Object as () => Ressource,
+  resource: {
+    type: Object as () => Resource,
     required: true,
   },
 });
 
 const formattedDate = computed(() => {
-  return props.ressource.lastUpdated
-    ? new Date(props.ressource.lastUpdated).toLocaleDateString("fr-FR", {
+  return props.resource.lastUpdated
+    ? new Date(props.resource.lastUpdated).toLocaleDateString("fr-FR", {
         year: "2-digit",
         month: "2-digit",
         day: "2-digit",
@@ -30,11 +30,11 @@ const formattedDate = computed(() => {
           <!-- TITLE + TAGS -->
           <div class="flex flex-col w-fit">
             <span class="text-xl font-bold">
-              {{ ressource.title }}
+              {{ resource.title }}
             </span>
-            <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="ressource.tags">
-              <RessourceTag
-                v-for="tag in ressource.tags"
+            <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="resource.tags">
+              <ResourceTag
+                v-for="tag in resource.tags"
                 :key="tag"
                 :label="tag"
               />
@@ -46,14 +46,14 @@ const formattedDate = computed(() => {
             class="flex flex-col text-end text-gray-4 truncate text-ellipsis"
           >
             <UTooltip
-              :text="$t('researchPage.author') + ' : ' + ressource.author"
+              :text="$t('researchPage.author') + ' : ' + resource.author"
             >
               <div
                 class="flex items-center justify-end truncate text-ellipsis cursor-default"
               >
                 <UIcon name="i-heroicons-user" class="mr-1" />
                 <span class="truncate text-ellipsis">
-                  {{ ressource.author }}
+                  {{ resource.author }}
                 </span>
               </div>
             </UTooltip>
@@ -77,7 +77,7 @@ const formattedDate = computed(() => {
 
       <div class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-30">
         <div class="text-sm">
-          {{ ressource.description }}
+          {{ resource.description }}
         </div>
       </div>
     </div>

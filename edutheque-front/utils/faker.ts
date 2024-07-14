@@ -1,10 +1,10 @@
-import type { Ressource } from "~/models";
+import type { Resource } from "~/models";
 import { faker } from "@faker-js/faker/locale/fr";
 import { SUBJECTS } from "~/models";
 import { LEVELS } from "~/models";
 
-export const generateResources = (length: number): Ressource[] => {
-  const resources: Ressource[] = [];
+export const generateResources = (length: number): Resource[] => {
+  const resources: Resource[] = [];
   const combinedTags = [...SUBJECTS, ...LEVELS.map((level) => level.label)];
 
   for (let i = 0; i < length; i++) {

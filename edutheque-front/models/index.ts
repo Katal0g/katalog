@@ -43,8 +43,8 @@ export const subjectIcons: Record<Subject, string> = {
   Technologie: "i-heroicons-cog",
 };
 
-// Define Ressource type
-export type Ressource = {
+// Define Resource type
+export type Resource = {
   title: string;
   description: string;
   lastUpdated: Date;
