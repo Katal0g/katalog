@@ -2,9 +2,16 @@
 import { ref } from "vue";
 import NavLink from "~/components/navbar/NavLink.vue";
 import MobileMenu from "~/components/navbar/MobileMenu.vue";
+const { setLocale } = useI18n();
+
+type LanguageType = { label: string; value: string };
+const languages = [
+  { label: "Français", value: "fr" },
+  { label: "English", value: "en" },
+] as LanguageType[];
 
 const isMenuOpen = ref(false);
-
+const languageSelected = ref({ label: "Français", value: "fr" });
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
@@ -12,17 +19,26 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false;
 };
+
+watch(languageSelected, (newValue: LanguageType) => {
+  setLocale(newValue.value);
+});
 </script>
 
 <template>
   <nav class="hidden mx-4 mt-4 pb-2 mb-4 md:flex justify-between border-b">
     <div>edutheque</div>
     <div class="flex gap-4">
-      <NavLink to="/" text="Ressources" />
-      <NavLink to="generator" text="Générateur" />
+      <NavLink to="/" :text="$t('ressources')" />
+      <NavLink to="generator" :text="$t('generator')" />
     </div>
     <div class="flex gap-2">
-      <NavLink to="help" text="Aide" icon="i-heroicons-question-mark-circle" />
+      <USelectMenu v-model="languageSelected" :options="languages" />
+      <NavLink
+        to="help"
+        :text="$t('help')"
+        icon="i-heroicons-question-mark-circle"
+      />
     </div>
   </nav>
 
