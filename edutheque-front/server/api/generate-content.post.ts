@@ -1,4 +1,5 @@
 import { OpenAI } from "openai";
+import { buildUserPrompt, SYSTEM_PROMPT } from "~/utils/prompt";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -12,12 +13,16 @@ export default defineEventHandler(async (event) => {
       messages: [
         {
           role: "system",
-          content:
-            "You are a helpful assistant that generates educational content.",
+          content: SYSTEM_PROMPT,
         },
         {
           role: "user",
-          content: `Generate educational content for ${body.level} level, subject: ${body.subject}, title: ${body.title}. Provide ${body.nbQuestions} questions about the topic, from easy to hard. Provide OpenEnded questions, Exclusive choice and multiple choice questions. Answer in French and in a Markdown format.`,
+          content: buildUserPrompt(
+            body.level,
+            body.subject,
+            body.title,
+            body.nbQuestions,
+          ),
         },
       ],
     });
