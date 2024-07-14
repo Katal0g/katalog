@@ -42,6 +42,7 @@
           block
           type="submit"
           color="primary"
+          icon="i-heroicons-plus-circle"
           :loading="loading"
         >
           Générer le contenu

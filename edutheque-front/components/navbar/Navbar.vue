@@ -19,7 +19,7 @@ const closeMenu = () => {
     <div>edutheque</div>
     <div class="flex gap-4">
       <NavLink to="/" text="Ressources" />
-      <NavLink to="generator" text="Generator" />
+      <NavLink to="generator" text="Générateur" />
     </div>
     <div class="flex gap-2">
       <NavLink to="help" text="Aide" icon="i-heroicons-question-mark-circle" />
