@@ -10,6 +10,6 @@ export default defineNuxtConfig({
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
   ui: {
-    icons: ['mdi', 'heroicons']
-  }
+    icons: ["mdi", "heroicons"],
+  },
 });

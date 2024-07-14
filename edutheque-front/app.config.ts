@@ -3,7 +3,7 @@ export default defineAppConfig({
     primary: "blue",
     gray: "slate",
     icons: {
-      dynamic: true
-    }
+      dynamic: true,
+    },
   },
 });

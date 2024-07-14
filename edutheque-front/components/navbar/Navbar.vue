@@ -1,23 +1,37 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import NavLink from "~/components/navbar/NavLink.vue";
+import MobileMenu from "~/components/navbar/MobileMenu.vue";
+
+const isMenuOpen = ref(false);
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+const closeMenu = () => {
+  isMenuOpen.value = false;
+};
 </script>
 
 <template>
   <nav class="hidden mx-4 mt-4 pb-2 mb-4 md:flex justify-between border-b">
     <div>edutheque</div>
     <div class="flex gap-4">
-      <ULink class="hover:font-bold transition-all" to="/">Ressources</ULink>
-      <ULink class="hover:font-bold transition-all" to="generator">Generator</ULink>
+      <NavLink to="/" text="Ressources" />
+      <NavLink to="generator" text="Generator" />
     </div>
-    <div>Aide / Contact</div>
-  </nav>
-  <nav class="flex flex-col items-center md:hidden">
-    <div>edutheque</div>
     <div class="flex gap-2">
-      <ULink to="/">Ressources</ULink>
-      <ULink to="generator">Generator</ULink>
+      <NavLink to="help" text="Aide" icon="i-heroicons-question-mark-circle" />
     </div>
-    <div>Aide / Contact</div>
   </nav>
-</template>
 
-<style scoped></style>
+  <!-- Mobile Nav -->
+  <nav class="flex mt-4 justify-between md:hidden">
+    <div>edutheque</div>
+    <UButton @click="toggleMenu" icon="i-mdi-menu" variant="soft" />
+  </nav>
+
+  <!-- Full-Screen Mobile Menu -->
+  <MobileMenu v-if="isMenuOpen" @closeMenu="closeMenu" />
+</template>
