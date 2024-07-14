@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import type { PropType } from "vue";
 
 const props = defineProps({
