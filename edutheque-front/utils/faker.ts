@@ -11,7 +11,8 @@ export const generateResources = (length: number): Ressource[] => {
     // Just to have uppercase first letter
     let fakeTitle = faker.company.buzzNoun();
     const title = fakeTitle.charAt(0).toUpperCase() + fakeTitle.slice(1);
-    const image = faker.image.url({ width: 150, height: 150 });
+    const author = faker.person.fullName();
+    const lastUpdated = faker.date.recent();
     const description = faker.lorem.sentences(3);
     const link = faker.internet.url();
     const nbTags = Math.floor(Math.random() * 4) + 1;
@@ -21,7 +22,7 @@ export const generateResources = (length: number): Ressource[] => {
       () => combinedTags[Math.floor(Math.random() * combinedTags.length)],
     );
 
-    resources.push({ title, image, description, link, tags });
+    resources.push({ title, author, lastUpdated, description, link, tags });
   }
 
   return resources;

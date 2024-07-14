@@ -20,6 +20,7 @@ export default defineI18nConfig(() => ({
         moreInfos: "More informations",
         search: "Search",
         use: "Use",
+        lastUpdated: "Last updated",
       },
       scholar: {
         level: "Level",
@@ -51,6 +52,7 @@ export default defineI18nConfig(() => ({
         moreInfos: "Plus d'informations",
         search: "Rechercher",
         use: "Utiliser",
+        lastUpdated: "Dernière mise à jour",
       },
       scholar: {
         level: "Niveau",

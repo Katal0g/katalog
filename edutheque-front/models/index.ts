@@ -47,7 +47,8 @@ export const subjectIcons: Record<Subject, string> = {
 export type Ressource = {
   title: string;
   description: string;
-  image?: string;
+  lastUpdated: Date;
+  author: string;
   link?: string;
   tags?: Tag[];
 };
