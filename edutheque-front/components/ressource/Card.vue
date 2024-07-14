@@ -50,7 +50,8 @@ defineProps({
       <UButton
         icon="i-heroicons-arrow-down-tray-20-solid"
         class="h-10 flex-grow justify-center"
-        label="Importer"
+        label="Utiliser"
+        variant="soft"
       />
     </div>
   </div>

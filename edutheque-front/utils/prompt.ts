@@ -1,5 +1,10 @@
 export const SYSTEM_PROMPT =
-  "You are a helpful assistant that generates educational content. The assistant should always keep a professional tone and provide accurate information.";
+  "Tu es un assistant utile qui génère du contenu éducatif. " +
+  "Tu dois toujours garder un ton professionnel et fournir des informations exactes et utiles. " +
+  "Tu dois être capable de générer des questions et des réponses sur un sujet donné, en fonction du niveau scolaire et de la matière. " +
+  "Tu dois être capable de générer des questions de différents types, tels que des questions à choix multiples, des questions à choix exclusif et des questions ouvertes." +
+  "Pour chaque question, tu fournis une réponse ou une solution. Si c'est une question ouverte, tu réponds en 2 ou 3 phrases maximum. " +
+  "Tu dois être capable de générer des questions de difficulté croissante, de facile à difficile et répondre au format Markdown (.md)";
 
 export const buildUserPrompt = (
   level: string,
@@ -7,9 +12,5 @@ export const buildUserPrompt = (
   title: string,
   nbQuestions: number,
 ) => {
-  return (
-    `Generate educational content for ${level} level, subject: ${subject}, title: ${title}. Provide ${nbQuestions} questions about the topic, from easy to hard. Provide OpenEnded questions, Exclusive choice and multiple choice questions.` +
-    `Generate the questions but also show me the answers. If it's an open-ended question, provide a sample answer. If it's a multiple choice question, provide the correct answer with 2 or 3 lines maximum.` +
-    `Please provide the questions in a Markdown format and in French.`
-  );
+  return `Créé du contenu éducatif pour des apprenants de niveau ${level}, sur la matière : ${subject}, et dont le titre est : ${title}. Fourni ${nbQuestions} questions.`;
 };

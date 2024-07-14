@@ -4,7 +4,7 @@ import type { PropType } from "vue";
 
 const props = defineProps({
   modelValue: { type: Array as PropType<string[]>, required: true },
-  options: { type: Array as PropType<readonly string[]>, required: true },
+  options: { type: Array as PropType<string[]>, required: true },
   searchablePlaceholder: { type: String, default: "Rechercher" },
   placeholder: { type: String, default: "Sélectionner" },
 });
@@ -29,9 +29,9 @@ watch(localModel, (newValue) => {
     class="w-full md:w-48"
   >
     <template #label>
-      <span v-if="localModel.length" class="text-ellipsis truncate">{{
-        localModel.join(", ")
-      }}</span>
+      <span v-if="localModel.length" class="text-ellipsis truncate">
+        {{ localModel.join(", ") }}
+      </span>
     </template>
   </USelectMenu>
 </template>

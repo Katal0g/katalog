@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { levels, subjects } from "~/models";
+import { LEVELS, SUBJECTS } from "~/models";
 
 const levelListSelected = ref<string[]>([]);
 const subjectListSelected = ref<string[]>([]);
@@ -17,7 +17,7 @@ const subjectListSelected = ref<string[]>([]);
     <UFormGroup label="Niveaux">
       <ResearchSelectMenu
         v-model="levelListSelected"
-        :options="levels"
+        :options="LEVELS.map((level) => level.label)"
         searchable-placeholder="Quel(s) niveau(x) ?"
         placeholder="Rechercher par niveau(x)"
       />
@@ -26,7 +26,7 @@ const subjectListSelected = ref<string[]>([]);
     <UFormGroup label="Matières">
       <ResearchSelectMenu
         v-model="subjectListSelected"
-        :options="subjects"
+        :options="SUBJECTS"
         searchable-placeholder="Quelle(s) matière(s) ?"
         placeholder="Rechercher par matière(s)"
       />

@@ -1,10 +1,11 @@
 import type { Ressource } from "~/models";
 import { faker } from "@faker-js/faker/locale/fr";
-import { levels, subjects } from "~/models";
+import { SUBJECTS } from "~/models";
+import { LEVELS } from "~/models";
 
 export const generateResources = (length: number): Ressource[] => {
   const resources: Ressource[] = [];
-  const combinedTags = [...subjects, ...levels];
+  const combinedTags = [...SUBJECTS, ...LEVELS.map((level) => level.label)];
 
   for (let i = 0; i < length; i++) {
     // Just to have uppercase first letter
