@@ -27,12 +27,12 @@ watch(languageSelected, (newValue: LanguageType) => {
 
 <template>
   <nav class="hidden mx-4 mt-4 pb-2 mb-4 md:flex justify-between border-b">
-    <div>edutheque</div>
+    <div class="w-1/5">edutheque</div>
     <div class="flex gap-4">
-      <NavLink to="/" :text="$t('ressources')" />
+      <NavLink to="/" :text="$t('resources')" />
       <NavLink to="generator" :text="$t('generator')" />
     </div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 w-1/5 justify-end">
       <USelectMenu v-model="languageSelected" :options="languages" />
       <NavLink
         to="help"

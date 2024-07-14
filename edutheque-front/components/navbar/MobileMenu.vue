@@ -17,12 +17,17 @@ const closeMenu = () => {
       variant="soft"
     />
     <div class="flex flex-col gap-4 text-center">
-      <NavLink @click="closeMenu" to="/" text="Ressources" size="xl" />
-      <NavLink @click="closeMenu" to="generator" text="Generator" size="xl" />
+      <NavLink @click="closeMenu" to="/" :text="$t('resources')" size="xl" />
+      <NavLink
+        @click="closeMenu"
+        to="generator"
+        :text="$t('generator')"
+        size="xl"
+      />
       <NavLink
         @click="closeMenu"
         to="help"
-        text="Aide"
+        :text="$t('help')"
         icon="i-heroicons-question-mark-circle"
         size="xl"
       />

@@ -4,7 +4,7 @@ export default defineI18nConfig(() => ({
   messages: {
     en: {
       generator: "Generator",
-      ressources: "Resources",
+      resources: "Resources",
       help: "Help",
       generatorPage: {
         content: "Content",
@@ -20,6 +20,7 @@ export default defineI18nConfig(() => ({
         moreInfos: "More informations",
         search: "Search",
         use: "Use",
+        lastUpdated: "Last updated",
       },
       scholar: {
         level: "Level",
@@ -35,7 +36,7 @@ export default defineI18nConfig(() => ({
     },
     fr: {
       generator: "Générateur",
-      ressources: "Ressources",
+      resources: "Ressources",
       help: "Aide",
       generatorPage: {
         content: "Contenu",
@@ -51,6 +52,7 @@ export default defineI18nConfig(() => ({
         moreInfos: "Plus d'informations",
         search: "Rechercher",
         use: "Utiliser",
+        lastUpdated: "Dernière mise à jour",
       },
       scholar: {
         level: "Niveau",

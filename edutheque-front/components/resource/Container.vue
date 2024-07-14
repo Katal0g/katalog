@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { type Ressource } from "~/models";
+import { type Resource } from "~/models";
 import { generateResources } from "~/utils/faker";
 
 const length = 20;
-const ressources = ref<Ressource[]>([]);
+const resources = ref<Resource[]>([]);
 
 onMounted(() => {
-  ressources.value = generateResources(length);
+  resources.value = generateResources(length);
 });
 </script>
 
 <template>
   <UContainer class="mt-6 flex flex-wrap justify-center gap-6 max-w-9xl">
-    <RessourceCard
-      v-for="ressource in ressources"
-      :key="ressource.title"
-      :ressource="ressource"
+    <ResourceCard
+      v-for="resource in resources"
+      :key="resource.title"
+      :resource="resource"
     />
   </UContainer>
 </template>
