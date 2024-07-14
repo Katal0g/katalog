@@ -4,7 +4,6 @@
     :state="state"
     @submit="generateContent"
     :schema="schema"
-    :validate="validate"
   >
     <UFormGroup :label="$t('scholar.level')" name="level" required>
       <USelect
@@ -85,17 +84,6 @@ const state = reactive({
   title: undefined,
   nbQuestions: 5,
 });
-
-// Custom validate function
-const validate = (state: any): FormError[] => {
-  const errors: FormError[] = [];
-  if (!state.level) errors.push({ path: "level", message: "Obligatoire" });
-  if (!state.subject) errors.push({ path: "subject", message: "Obligatoire" });
-  if (!state.title) errors.push({ path: "title", message: "Obligatoire" });
-  if (!state.nbQuestions)
-    errors.push({ path: "nbQuestions", message: "Obligatoire" });
-  return errors;
-};
 
 // Async function to generate content
 const generateContent = async () => {

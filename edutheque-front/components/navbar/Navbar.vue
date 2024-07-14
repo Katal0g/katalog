@@ -45,7 +45,10 @@ watch(languageSelected, (newValue: LanguageType) => {
   <!-- Mobile Nav -->
   <nav class="flex mt-4 justify-between md:hidden">
     <div>edutheque</div>
-    <UButton @click="toggleMenu" icon="i-mdi-menu" variant="soft" />
+    <div class="flex gap-4">
+      <USelectMenu v-model="languageSelected" :options="languages" />
+      <UButton @click="toggleMenu" icon="i-mdi-menu" variant="soft" />
+    </div>
   </nav>
 
   <!-- Full-Screen Mobile Menu -->
