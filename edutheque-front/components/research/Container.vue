@@ -4,10 +4,6 @@ import { levels, subjects } from "~/models";
 
 const levelListSelected = ref<string[]>([]);
 const subjectListSelected = ref<string[]>([]);
-
-watch([levelListSelected, subjectListSelected], () => {
-  console.log(levelListSelected.value, subjectListSelected.value);
-});
 </script>
 
 <template>

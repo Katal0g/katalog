@@ -4,7 +4,7 @@ import type { PropType } from "vue";
 
 const props = defineProps({
   modelValue: { type: Array as PropType<string[]>, required: true },
-  options: { type: Array as PropType<string[]>, required: true },
+  options: { type: Array as PropType<readonly string[]>, required: true },
   searchablePlaceholder: { type: String, default: "Rechercher" },
   placeholder: { type: String, default: "Sélectionner" },
 });
