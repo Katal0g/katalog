@@ -3,18 +3,8 @@ export default defineI18nConfig(() => ({
   locale: "fr",
   messages: {
     en: {
-      generator: "Generator",
       resources: "Resources",
       help: "Help",
-      generatorPage: {
-        content: "Content",
-        export: "Export",
-        contentPlaceholder: "Your content will be generated here...",
-        generateContent: "Generate the content",
-        nbQuestions: "Nb of questions",
-        robotsWorking:
-          "Our little robots are working hard to generate the content...",
-      },
       researchPage: {
         author: "Author",
         moreInfos: "More informations",
@@ -39,18 +29,8 @@ export default defineI18nConfig(() => ({
       },
     },
     fr: {
-      generator: "Générateur",
       resources: "Ressources",
       help: "Aide",
-      generatorPage: {
-        content: "Contenu",
-        export: "Exporter",
-        contentPlaceholder: "Votre contenu sera généré ici...",
-        generateContent: "Générer le contenu",
-        nbQuestions: "Nb de questions",
-        robotsWorking:
-          "Nos petits robots travaillent dur pour générer le contenu...",
-      },
       researchPage: {
         author: "Auteur",
         moreInfos: "Plus d'informations",
