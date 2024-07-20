@@ -27,7 +27,7 @@ watch(languageSelected, (newValue: LanguageType) => {
 
 <template>
   <nav class="hidden mx-4 mt-4 pb-2 mb-4 md:flex justify-between border-b">
-    <div class="w-1/5">edutheque</div>
+    <div class="w-1/5">katalog</div>
     <div class="flex gap-4">
       <NavLink to="/" :text="$t('resources')" />
       <NavLink to="generator" :text="$t('generator')" />
@@ -44,7 +44,7 @@ watch(languageSelected, (newValue: LanguageType) => {
 
   <!-- Mobile Nav -->
   <nav class="flex mt-4 justify-between md:hidden">
-    <div>edutheque</div>
+    <div>katalog</div>
     <div class="flex gap-4">
       <USelectMenu v-model="languageSelected" :options="languages" />
       <UButton @click="toggleMenu" icon="i-mdi-menu" variant="soft" />

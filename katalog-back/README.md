@@ -1,4 +1,4 @@
-# 🎨 Edutheque back-end
+# 🎨 Katalog back-end
 
 ## 🧑‍💻 Setup
 
