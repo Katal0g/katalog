@@ -11,8 +11,12 @@ const props = defineProps<{
 }>();
 
 const page = ref(props.page);
+const emit = defineEmits<{
+  (e: 'update:page', value: number): void;
+}>();
 
 watch(page, () => {
+  emit('update:page', page.value);
   props.onPageChange();
 });
 </script>
@@ -27,7 +31,6 @@ watch(page, () => {
         v-model="page"
         :total="props.totalItems"
         :page-count="25"
-        @change="props.onPageChange"
         show-last
         show-first
     />

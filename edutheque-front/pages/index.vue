@@ -11,9 +11,9 @@ const page = ref(1);
 const perPage = 25;
 const totalItems = ref(0);
 const searchParams = ref({ query: '' });
-const loading = ref(true); // Add loading state
-const queryTime = ref(0); // Add query time
-const resultCount = ref(0); // Add result count
+const loading = ref(true);
+const queryTime = ref(0);
+const resultCount = ref(0);
 
 interface ApiResponse {
   data: GitLabProject[];
@@ -24,7 +24,7 @@ interface ApiResponse {
 
 const fetchRepositories = async () => {
   loading.value = true;
-  const startTime = performance.now(); // Start timer
+  const startTime = performance.now();
 
   try {
     const response = await $fetch<ApiResponse>('/api/get-repositories', {
@@ -49,13 +49,11 @@ const fetchRepositories = async () => {
 
 const handleSearch = (params: { query: string }) => {
   searchParams.value = params;
-  page.value = 1; // Reset to first page when searching
+  page.value = 1;
   fetchRepositories();
 };
 
 onMounted(fetchRepositories);
-
-watch(page, fetchRepositories);
 </script>
 
 <template>
@@ -68,6 +66,7 @@ watch(page, fetchRepositories);
         :totalItems="totalItems"
         :loading="loading"
         :onPageChange="fetchRepositories"
+        @update:page="page = $event"
     />
   </div>
 </template>
