@@ -1,1 +1,1 @@
-# edutheque
+# Katalog monorepo
