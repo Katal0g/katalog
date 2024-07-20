@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import type { GitLabProject, Resource } from "~/models";
-import {convertToResource} from "~/utils/convert";
+import { ref, watch } from 'vue';
+import type { Resource } from '~/models';
 
-// Define refs for resources and repositories
-const resources = ref<Resource[]>([]);
-const repositories = ref<GitLabProject[]>([]);
+const props = defineProps<{
+  resources: Resource[];
+  page: number;
+  totalItems: number;
+  loading: boolean;
+  onPageChange: () => void;
+}>();
 
-onMounted(async () => {
-  try {
-    const response = await $fetch<GitLabProject[]>("/api/get-repositories");
-    repositories.value = response;
-    resources.value.push(...response.map(convertToResource));
-  } catch (error) {
-    console.error("Error generating content:", error);
-  }
+const page = ref(props.page);
+
+watch(page, () => {
+  props.onPageChange();
 });
 </script>
 
 <template>
-  <UContainer class="mt-6 flex flex-wrap justify-center gap-6 max-w-9xl">
-    <ResourceCard
-        v-for="resource in resources"
-        :key="resource.title"
-        :resource="resource"
+  <div class="flex flex-col items-center gap-6 mt-4">
+    <UContainer class="flex flex-wrap justify-center gap-6 max-w-9xl w-full">
+      <ResourceCard v-for="resource in props.resources" :key="resource.id" :resource="resource" />
+    </UContainer>
+    <UPagination
+        v-if="!props.loading"
+        v-model="page"
+        :total="props.totalItems"
+        :page-count="25"
+        @change="props.onPageChange"
+        show-last
+        show-first
     />
-  </UContainer>
+  </div>
 </template>
 
 <style scoped></style>

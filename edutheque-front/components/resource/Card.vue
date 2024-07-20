@@ -17,6 +17,18 @@ const formattedDate = computed(() => {
       })
     : "N/A";
 });
+
+const detailedDateTime = computed(() => {
+  return props.resource.lastUpdated
+    ? new Date(props.resource.lastUpdated).toLocaleString("fr-FR", {
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "N/A";
+});
 </script>
 
 <template>
@@ -28,7 +40,7 @@ const formattedDate = computed(() => {
       <div class="flex">
         <div class="flex justify-between w-full">
           <!-- TITLE + TAGS -->
-          <div class="flex flex-col w-fit">
+          <div class="flex flex-col w-fit text-wrap max-w-48  truncate text-ellipsis">
             <span class="text-xl font-bold">
               {{ resource.title }}
             </span>
@@ -43,7 +55,7 @@ const formattedDate = computed(() => {
 
           <!-- AUTHOR + DATE -->
           <div
-            class="flex flex-col text-end text-gray-4 truncate text-ellipsis"
+            class="flex flex-col text-end text-gray-4 truncate text-ellipsis pl-2"
           >
             <UTooltip
               :text="$t('researchPage.author') + ' : ' + resource.author"
@@ -59,7 +71,7 @@ const formattedDate = computed(() => {
             </UTooltip>
             <div class="flex items-center justify-end">
               <UTooltip
-                :text="$t('researchPage.lastUpdated') + ' : ' + formattedDate"
+                :text="$t('researchPage.lastUpdated') + ' : ' + detailedDateTime"
               >
                 <div
                   class="flex items-center justify-end truncate text-ellipsis cursor-default"
@@ -85,17 +97,14 @@ const formattedDate = computed(() => {
     <!-- BUTTONS -->
     <div class="flex flex-wrap gap-2 pt-2">
       <UButton
-        icon="i-heroicons-information-circle"
-        variant="soft"
-        color="gray"
+        icon="i-heroicons-arrow-up-right-20-solid"
         class="h-10 flex-grow justify-center"
-        label="Plus d'infos"
-      />
-      <UButton
-        icon="i-heroicons-arrow-down-tray-20-solid"
-        class="h-10 flex-grow justify-center"
-        label="Utiliser"
+        :label="$t('researchPage.goToResource')"
         variant="soft"
+        target="_blank"
+        trailing
+        :disabled="!resource.link"
+        :to="resource.link"
       />
     </div>
   </div>

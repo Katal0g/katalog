@@ -1,60 +1,35 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { LEVELS, SUBJECTS } from "~/models";
+import { ref } from 'vue';
+const props = defineProps<{
+  onSearch: (params: { query: string }) => void;
+  loading: boolean;
+  totalItems: number;
+  queryTime: number;
+}>();
 
-const levelListSelected = ref<string[]>([]);
-const subjectListSelected = ref<string[]>([]);
+const query = ref('');
+
+const search = () => {
+  const searchParams = { query: query.value };
+  props.onSearch(searchParams);
+};
 </script>
 
 <template>
-  <UContainer
-    class="mt-4 flex h-fit w-full flex-col justify-center gap-3 border p-4 rounded-4 md:flex-row lg:w-fit"
-  >
-    <UFormGroup :label="$t('scholar.title')">
-      <UInput
-        :placeholder="
-          $t('utils.search', { field: $t('scholar.title').toLowerCase() })
-        "
-      />
-    </UFormGroup>
-    <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup :label="$t('scholar.level')">
-      <ResearchSelectMenu
-        v-model="levelListSelected"
-        :options="LEVELS.map((level) => level.label)"
-        :searchable-placeholder="
-          $t('utils.search', { field: $t('scholar.level').toLowerCase() })
-        "
-        :placeholder="
-          $t('utils.search', { field: $t('scholar.level').toLowerCase() })
-        "
-      />
-    </UFormGroup>
-    <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup :label="$t('scholar.subject')">
-      <ResearchSelectMenu
-        v-model="subjectListSelected"
-        :options="SUBJECTS"
-        :searchable-placeholder="
-          $t('utils.search', { field: $t('scholar.subject').toLowerCase() })
-        "
-        :placeholder="
-          $t('utils.search', { field: $t('scholar.subject').toLowerCase() })
-        "
-      />
-    </UFormGroup>
-    <ResearchVerticalDivider class="hidden md:flex" />
-    <UFormGroup :label="$t('researchPage.author')">
-      <UInput
-        :placeholder="
-          $t('utils.search', { field: $t('researchPage.author').toLowerCase() })
-        "
-      />
-    </UFormGroup>
-    <UButton
-      :label="$t('researchPage.search')"
-      icon="i-heroicons-magnifying-glass"
-    />
+  <UContainer class="flex flex-col items-center">
+    <UContainer class="mt-4 flex h-fit w-full justify-center gap-3 rounded-4 md:flex-row max-w-lg">
+      <UFormGroup class="w-full">
+        <UInput
+            v-model="query"
+            :placeholder="$t('utils.simpleSearch')"
+            @keyup.enter="search"
+        />
+      </UFormGroup>
+      <UButton icon="i-heroicons-magnifying-glass" @click="search" :loading="props.loading" />
+    </UContainer>
+    <div class="mt-2 text-xs text-gray-500" v-if="!loading">
+      <p>{{ $t('utils.results_count', { count: props.totalItems }) }} ({{ $t('utils.query_time', { time: props.queryTime.toFixed(2) }) }})</p>
+    </div>
   </UContainer>
 </template>
 
