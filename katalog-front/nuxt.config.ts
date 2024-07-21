@@ -5,18 +5,14 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
-  modules: [
-    "@unocss/nuxt",
-    "@nuxt/ui",
-    [
-      "@nuxtjs/i18n",
-      {
-        i18n: {
-          vueI18n: "./i18n.config.ts",
-        },
+  modules: ["@nuxt/ui", [
+    "@nuxtjs/i18n",
+    {
+      i18n: {
+        vueI18n: "./i18n.config.ts",
       },
-    ],
-  ],
+    },
+  ], "@nuxtjs/tailwindcss"],
   ui: {
     icons: ["mdi", "heroicons"],
   },
