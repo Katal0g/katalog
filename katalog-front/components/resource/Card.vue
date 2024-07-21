@@ -37,20 +37,13 @@ const detailedDateTime = computed(() => {
   >
     <!-- MAIN -->
     <div class="cursor-default">
-      <div class="flex">
+      <div class="flex flex-col">
         <div class="flex justify-between w-full">
           <!-- TITLE + TAGS -->
           <div class="flex flex-col w-fit text-wrap max-w-48 truncate text-ellipsis">
             <span class="text-xl font-bold">
               {{ resource.title }}
             </span>
-            <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="resource.tags">
-              <ResourceTag
-                v-for="tag in resource.tags"
-                :key="tag"
-                :label="tag"
-              />
-            </div>
           </div>
 
           <!-- AUTHOR + DATE -->
@@ -85,9 +78,16 @@ const detailedDateTime = computed(() => {
             </div>
           </div>
         </div>
+        <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="resource.tags">
+          <ResourceTag
+              v-for="tag in resource.tags"
+              :key="tag"
+              :label="tag"
+          />
+        </div>
       </div>
 
-      <div class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-32">
+      <div class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-24">
         <div class="text-sm">
           {{ resource.description }}
         </div>
