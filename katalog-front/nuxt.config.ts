@@ -1,8 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  colorMode: {
-    preference: "light",
-  },
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   modules: ["@nuxt/ui", [
@@ -12,7 +9,7 @@ export default defineNuxtConfig({
         vueI18n: "./i18n.config.ts",
       },
     },
-  ], "@nuxtjs/tailwindcss"],
+  ], "@nuxtjs/tailwindcss", '@nuxtjs/color-mode'],
   ui: {
     icons: ["mdi", "heroicons"],
   },

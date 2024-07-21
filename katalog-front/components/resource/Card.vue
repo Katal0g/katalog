@@ -33,7 +33,7 @@ const detailedDateTime = computed(() => {
 
 <template>
   <div
-    class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shadow-none transition border hover:border-slate-400 flex flex-col justify-between p-4 rounded-lg"
+    class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shadow-none transition border hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500 dark:bg-zinc-800 flex flex-col justify-between p-4 rounded-lg"
   >
     <!-- MAIN -->
     <div class="cursor-default">
@@ -48,7 +48,7 @@ const detailedDateTime = computed(() => {
 
           <!-- AUTHOR + DATE -->
           <div
-            class="flex flex-col text-end text-gray-400 truncate text-ellipsis pl-2"
+            class="flex flex-col text-end text-sm mt-1 text-gray-400 truncate text-ellipsis pl-2"
           >
             <UTooltip
               :text="$t('researchPage.author') + ' : ' + resource.author"
