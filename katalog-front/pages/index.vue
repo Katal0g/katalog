@@ -57,7 +57,7 @@ onMounted(fetchRepositories);
 </script>
 
 <template>
-  <div class="mb-4">
+  <div class="pb-4">
     <ResearchContainer :onSearch="handleSearch" :loading="loading" :total-items="totalItems" :query-time="queryTime" />
     <UDivider class="my-2" />
     <ResourceContainer
