@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:9.0
+    container_name: katalog_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # Mot de passe root pour MySQL
+      MYSQL_DATABASE: katalog_db          # Nom de la base de données
+      MYSQL_USER: katalog_user            # Utilisateur de la base de données
+      MYSQL_PASSWORD: katalog_password    # Mot de passe de l'utilisateur de la base de données
+    ports:
+      - "3306:3306"                       # Expose le port 3306
+    volumes:
+      - mysql_data:/var/lib/mysql         # Monte un volume pour la persistance des données
+    networks:
+      - katalog_network                   # Réseau Docker
+
+networks:
+  katalog_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
