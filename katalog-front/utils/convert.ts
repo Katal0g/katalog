@@ -1,15 +1,21 @@
-import { type GitLabProject, type Resource, LEVELS, SUBJECTS, type Tag } from "~/models";
+import {
+  type GitLabProject,
+  type Resource,
+  LEVELS,
+  SUBJECTS,
+  type Tag,
+} from "~/models";
 
 export const convertToResource = (project: GitLabProject): Resource => {
-    const tags: Tag[] = project.tag_list
+  const tags: Tag[] = project.tag_list;
 
-    return {
-        id: project.id,
-        title: project.name,
-        description: project.description,
-        lastUpdated: new Date(project.last_activity_at),
-        author: project.namespace.name,
-        link: project.web_url,
-        tags,
-    };
+  return {
+    id: project.id,
+    title: project.name,
+    description: project.description,
+    lastUpdated: new Date(project.last_activity_at),
+    author: project.namespace.name,
+    link: project.web_url,
+    tags,
+  };
 };

@@ -85,4 +85,4 @@ type Namespace = {
   parent_id: number | null;
   avatar_url: string | null;
   web_url: string;
-}
+};

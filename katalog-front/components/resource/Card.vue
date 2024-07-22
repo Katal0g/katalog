@@ -33,14 +33,16 @@ const detailedDateTime = computed(() => {
 
 <template>
   <div
-    class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shadow-none transition border hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500 dark:bg-zinc-800 flex flex-col justify-between p-4 rounded-lg"
+    class="w-full max-w-sm shadow-none transition border hover:border-slate-400 dark:border-slate-600 dark:hover:border-slate-500 dark:bg-zinc-800 flex flex-col justify-between rounded-lg"
   >
     <!-- MAIN -->
     <div class="cursor-default">
-      <div class="flex flex-col">
+      <div class="flex flex-col px-4 pt-3">
         <div class="flex justify-between w-full">
           <!-- TITLE + TAGS -->
-          <div class="flex flex-col w-fit text-wrap max-w-48 truncate text-ellipsis">
+          <div
+            class="flex flex-col w-fit text-wrap max-w-48 truncate text-ellipsis"
+          >
             <span class="text-xl font-bold">
               {{ resource.title }}
             </span>
@@ -64,7 +66,9 @@ const detailedDateTime = computed(() => {
             </UTooltip>
             <div class="flex items-center justify-end">
               <UTooltip
-                :text="$t('researchPage.lastUpdated') + ' : ' + detailedDateTime"
+                :text="
+                  $t('researchPage.lastUpdated') + ' : ' + detailedDateTime
+                "
               >
                 <div
                   class="flex items-center justify-end truncate text-ellipsis cursor-default"
@@ -79,23 +83,25 @@ const detailedDateTime = computed(() => {
           </div>
         </div>
         <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="resource.tags">
-          <ResourceTag
-              v-for="tag in resource.tags"
-              :key="tag"
-              :label="tag"
-          />
+          <ResourceTag v-for="tag in resource.tags" :key="tag" :label="tag" />
         </div>
       </div>
+      <UDivider class="mt-2 w-full mr-4" :ui="{  border: { base: 'flex border-gray-200 dark:border-gray-500'}}" />
 
-      <div class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-24">
-        <div class="text-sm">
+      <div
+        class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-24 p-4"
+      >
+        <div class="text-sm" v-if="resource.description">
           {{ resource.description }}
+        </div>
+        <div class="text-sm text-gray-500" v-else>
+          {{ $t("researchPage.noDescription") }}
         </div>
       </div>
     </div>
 
     <!-- BUTTONS -->
-    <div class="flex flex-wrap gap-2 pt-2">
+    <div class="flex flex-wrap gap-2 p-2">
       <UButton
         icon="i-heroicons-arrow-up-right-20-solid"
         class="h-10 flex-grow justify-center"
