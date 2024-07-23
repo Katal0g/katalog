@@ -86,7 +86,10 @@ const detailedDateTime = computed(() => {
           <ResourceTag v-for="tag in resource.tags" :key="tag" :label="tag" />
         </div>
       </div>
-      <UDivider class="mt-2 w-full mr-4" :ui="{  border: { base: 'flex border-gray-200 dark:border-gray-500'}}" />
+      <UDivider
+        class="mt-2 w-full mr-4"
+        :ui="{ border: { base: 'flex border-gray-200 dark:border-gray-500' } }"
+      />
 
       <div
         class="flex flex-col gap-1 overflow-auto pt-2 flex-grow max-h-24 p-4"

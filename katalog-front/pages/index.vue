@@ -47,6 +47,8 @@ const fetchRepositories = async () => {
   }
 };
 
+const query = ref("");
+
 const handleSearch = (params: { query: string }) => {
   searchParams.value = params;
   page.value = 1;
@@ -54,25 +56,66 @@ const handleSearch = (params: { query: string }) => {
 };
 
 onMounted(fetchRepositories);
+
+watch(page, fetchRepositories);
 </script>
 
 <template>
   <div class="pb-4">
-    <ResearchContainer
-      :onSearch="handleSearch"
-      :loading="loading"
-      :total-items="totalItems"
-      :query-time="queryTime"
-    />
+    <ResearchContainer>
+      <template #searchBar>
+        <UFormGroup class="w-full">
+          <UInput
+            size="lg"
+            v-model="query"
+            :placeholder="$t('utils.simpleSearch')"
+            @keyup.enter="handleSearch({ query })"
+            :ui="{ placeholder: 'dark:placeholder-gray-400' }"
+          />
+        </UFormGroup>
+        <UButton
+          size="lg"
+          icon="i-heroicons-magnifying-glass"
+          @click="handleSearch({ query })"
+          :loading="loading"
+        />
+      </template>
+
+      <template #results>
+        <div class="mt-2 text-xs text-gray-500" v-if="!loading">
+          <p>
+            {{ $t("utils.results_count", { count: totalItems }) }} ({{
+              $t("utils.query_time", { time: queryTime.toFixed(2) })
+            }})
+          </p>
+        </div>
+      </template>
+    </ResearchContainer>
+
     <UDivider class="my-2" />
-    <ResourceContainer
-      :resources="resources"
-      :page="page"
-      :totalItems="totalItems"
-      :loading="loading"
-      :onPageChange="fetchRepositories"
-      @update:page="page = $event"
-    />
+
+    <ResourceContainer v-if="!loading">
+      <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+        <ResourceCard
+          v-for="resource in resources"
+          :key="resource.id"
+          :resource="resource"
+        />
+      </UContainer>
+      <UPagination
+        v-model="page"
+        :total="totalItems"
+        :page-count="30"
+        show-last
+        show-first
+      />
+    </ResourceContainer>
+
+    <ResourceContainer v-else>
+      <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+        <ResourceSkeleton v-for="i in 10" :key="i" />
+      </UContainer>
+    </ResourceContainer>
   </div>
 </template>
 

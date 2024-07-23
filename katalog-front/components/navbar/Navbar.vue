@@ -27,11 +27,9 @@ watch(languageSelected, (newValue: LanguageType) => {
 </script>
 
 <template>
-  <nav
-    class="hidden mb-4 py-2 md:block border-b "
-  >
+  <nav class="hidden mb-4 py-2 md:block border-b">
     <UContainer class="flex w-full justify-between items-center">
-      <div class="w-1/5">katalog</div>
+      <div class="w-1/5 pointer-events-none">katalog</div>
       <div class="flex gap-4">
         <NavLink to="/" :text="$t('resources')" />
       </div>
@@ -39,18 +37,19 @@ watch(languageSelected, (newValue: LanguageType) => {
         <ColorModeButton />
         <USelectMenu v-model="languageSelected" :options="languages" />
         <NavLink
-            to="help"
-            :text="$t('help')"
-            icon="i-heroicons-question-mark-circle"
+          to="help"
+          :text="$t('help')"
+          icon="i-heroicons-question-mark-circle"
         />
       </div>
     </UContainer>
-
   </nav>
 
   <!-- Mobile Nav -->
-  <nav class="flex py-2 px-4 justify-between items-center border-b md:hidden">
-    <div>katalog</div>
+  <nav
+    class="flex mb-4 py-2 px-4 justify-between items-center border-b md:hidden"
+  >
+    <div class="pointer-events-none">katalog</div>
     <div class="flex gap-2 items-center">
       <ColorModeButton />
       <USelectMenu v-model="languageSelected" :options="languages" />
