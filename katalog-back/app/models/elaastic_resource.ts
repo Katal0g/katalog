@@ -11,8 +11,11 @@ export default class ElaasticResource extends BaseModel {
   @column()
   declare description: string
 
-  @column.dateTime()
-  declare lastUpdated: DateTime
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 
   @column()
   declare author: string
