@@ -1,12 +1,12 @@
 import router from '@adonisjs/core/services/router'
-const ElaasticResourcesController = () => import('#controllers/elaastic_resources_controller')
+const resourcesController = () => import('#controllers/resources_controller')
 
 router
   .group(() => {
-    router.get('/elaasticResources', [ElaasticResourcesController, 'index'])
-    router.post('/elaasticResources', [ElaasticResourcesController, 'store'])
-    router.get('/elaasticResources/:id', [ElaasticResourcesController, 'show'])
-    router.put('/elaasticResources/:id', [ElaasticResourcesController, 'update'])
-    router.delete('/elaasticResources/:id', [ElaasticResourcesController, 'destroy'])
+    router.get('/resources', [resourcesController, 'index'])
+    router.post('/resources', [resourcesController, 'store'])
+    router.get('/resources/:id', [resourcesController, 'show'])
+    router.put('/resources/:id', [resourcesController, 'update'])
+    router.delete('/resources/:id', [resourcesController, 'destroy'])
   })
   .prefix('api/v1')
