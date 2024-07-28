@@ -4,7 +4,7 @@ import ResourceContainer from "~/components/resource/Container.vue";
 import ResearchContainer from "~/components/research/Container.vue";
 import type {GitLabProject} from "~/models";
 import {convertToResource} from "~/utils/convert";
-import type {Resource} from "../../common";
+import type {Resource} from "#common/resource";
 
 const resources = ref<Resource[]>([]);
 const repositories = ref<GitLabProject[]>([]);

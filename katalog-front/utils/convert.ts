@@ -4,7 +4,7 @@ import {
   SUBJECTS,
   type Tag,
 } from '~/models';
-import type {Resource} from "../../common";
+import type {Resource} from "#common/resource";
 
 export const convertToResource = (project: GitLabProject): Resource => {
   const tags: Tag[] = project.tag_list;

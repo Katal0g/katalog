@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import path from "node:path";
+
 export default defineNuxtConfig({
+  alias: {
+    "#common": "../../common"
+  },
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
   modules: [

@@ -2,7 +2,7 @@ import type {  } from "~/models";
 import { faker } from "@faker-js/faker/locale/fr";
 import { SUBJECTS } from "~/models";
 import { LEVELS } from "~/models";
-import type {Resource} from "../../common";
+import type {Resource} from "#common/resource";
 
 export const generateResources = (length: number): Resource[] => {
   const resources: Resource[] = [];
