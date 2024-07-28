@@ -43,16 +43,6 @@ export const subjectIcons: Record<Subject, string> = {
   Technologie: "i-heroicons-cog",
 };
 
-// Define Resource type
-export type Resource = {
-  id: number;
-  title: string;
-  description: string;
-  lastUpdated: Date;
-  author: string;
-  link?: string;
-  tags?: Tag[];
-};
 
 export type GitLabProject = {
   id: number;

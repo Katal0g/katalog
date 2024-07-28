@@ -1,7 +1,15 @@
 {
   "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "compilerOptions": {
-    "rootDir": "./",
+    "rootDir": "../.",
     "outDir": "./build",
+    "baseUrl": ".",
+    "paths": {
+      "#common/*": ["../common/*"]
+    }
   },
+  "include": [
+    "**/*",
+    "../common/**/*"
+  ]
 }

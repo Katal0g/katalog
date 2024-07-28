@@ -1,9 +1,10 @@
-<script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+<script lang="ts" setup>
+import {onMounted, ref, watch} from "vue";
 import ResourceContainer from "~/components/resource/Container.vue";
 import ResearchContainer from "~/components/research/Container.vue";
-import type { Resource, GitLabProject } from "~/models";
-import { convertToResource } from "~/utils/convert";
+import type {GitLabProject} from "~/models";
+import {convertToResource} from "~/utils/convert";
+import type {Resource} from "#common/resource";
 
 const resources = ref<Resource[]>([]);
 const repositories = ref<GitLabProject[]>([]);
@@ -66,54 +67,54 @@ watch(page, fetchRepositories);
       <template #searchBar>
         <UFormGroup class="w-full">
           <UInput
-            size="lg"
-            v-model="query"
-            :placeholder="$t('utils.simpleSearch')"
-            @keyup.enter="handleSearch({ query })"
-            :ui="{ placeholder: 'dark:placeholder-gray-400' }"
+              v-model="query"
+              :placeholder="$t('utils.simpleSearch')"
+              :ui="{ placeholder: 'dark:placeholder-gray-400' }"
+              size="lg"
+              @keyup.enter="handleSearch({ query })"
           />
         </UFormGroup>
         <UButton
-          size="lg"
-          icon="i-heroicons-magnifying-glass"
-          @click="handleSearch({ query })"
-          :loading="loading"
+            :loading="loading"
+            icon="i-heroicons-magnifying-glass"
+            size="lg"
+            @click="handleSearch({ query })"
         />
       </template>
 
       <template #results>
-        <div class="mt-2 text-xs text-gray-500" v-if="!loading">
+        <div v-if="!loading" class="mt-2 text-xs text-gray-500">
           <p>
-            {{ $t("utils.results_count", { count: totalItems }) }} ({{
-              $t("utils.query_time", { time: queryTime.toFixed(2) })
+            {{ $t("utils.results_count", {count: totalItems}) }} ({{
+              $t("utils.query_time", {time: queryTime.toFixed(2)})
             }})
           </p>
         </div>
       </template>
     </ResearchContainer>
 
-    <UDivider class="my-2" />
+    <UDivider class="my-2"/>
 
     <ResourceContainer v-if="!loading">
       <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
         <ResourceCard
-          v-for="resource in resources"
-          :key="resource.id"
-          :resource="resource"
+            v-for="resource in resources"
+            :key="resource.id"
+            :resource="resource"
         />
       </UContainer>
       <UPagination
-        v-model="page"
-        :total="totalItems"
-        :page-count="30"
-        show-last
-        show-first
+          v-model="page"
+          :page-count="30"
+          :total="totalItems"
+          show-first
+          show-last
       />
     </ResourceContainer>
 
     <ResourceContainer v-else>
       <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
-        <ResourceSkeleton v-for="i in 10" :key="i" />
+        <ResourceSkeleton v-for="i in 10" :key="i"/>
       </UContainer>
     </ResourceContainer>
   </div>
