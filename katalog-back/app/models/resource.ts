@@ -11,7 +11,3 @@ export type Resource = {
 
 export type Tag = string
 
-export enum Source {
-  ELAASTIC = 'elaastic',
-  FORGE = 'forge',
-}

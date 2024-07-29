@@ -6,6 +6,12 @@ export type Resource = {
     author: string;
     link?: string;
     tags?: Tag[];
+    source: Source;
 };
 
 export type Tag = string;
+
+export enum Source {
+  ELAASTIC = 'elaastic',
+  FORGE = 'forge',
+}

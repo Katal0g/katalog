@@ -1,4 +1,3 @@
-// TODO: Do I call this ForgeResource or index.ts?
 
 export type GitLabProject = {
   id: number
