@@ -1,5 +1,4 @@
-
-export type GitLabProject = {
+export type ForgeResource = {
   id: number
   description: string
   name: string
