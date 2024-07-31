@@ -1,5 +1,6 @@
 import { ForgeResource } from '#models/forge_resource'
-import { Resource, Source, Tag } from '#common/resource.js'
+// TODO : Correct import using common
+import { Resource, Source, Tag } from '#models/resource'
 
 export const convertToResource = (forgeResource: ForgeResource, source: Source): Resource => {
   const tags: Tag[] = forgeResource.tag_list

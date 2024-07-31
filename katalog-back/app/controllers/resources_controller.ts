@@ -1,7 +1,8 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import ElaasticResource from '#models/elaastic_resource'
 import ForgeResourcesService from '#services/forge_resources_service'
-import { Resource, Source } from '#common/resource.js'
+// TODO : Correct import using common
+import { Resource, Source } from '#models/resource'
 import { ForgeResource } from '#models/forge_resource'
 import { convertToResource } from '../utils/convert.js'
 
