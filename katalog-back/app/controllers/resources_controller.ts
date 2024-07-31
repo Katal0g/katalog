@@ -1,8 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import ElaasticResource from '#models/elaastic_resource'
 import ForgeResourcesService from '#services/forge_resources_service'
-import { Resource } from '#common/resource.js'
+import { Resource, Source } from '#common/resource.js'
 import { ForgeResource } from '#models/forge_resource'
+import { convertToResource } from '../utils/convert.js'
 
 // TODO : Make resources controller gather all types of resources (Forge, Elaastic)
 
@@ -16,10 +17,13 @@ export default class ResourcesController {
       const searchQuery = request.input('query', '')
 
       const result = await ForgeResourcesService.getProjects(page, perPage, searchQuery)
-      const gitlabProjects: ForgeResource[] = result.data
+      const forgeResources: ForgeResource[] = result.data
 
-      const resources:  = gitlabProjects
-      return response.json(result)
+      // Convert Forge resources to resources
+      const resources: Resource[] = forgeResources.map((project) =>
+        convertToResource(project, Source.FORGE)
+      )
+      return response.json(resources)
     } catch (error) {
       return response.status(500).json({ message: error.message })
     }
