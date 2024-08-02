@@ -1,46 +1,24 @@
-import { Gitlab } from "@gitbeaker/rest";
+import {H3Event} from "h3";
+import ky from "ky";
 
-class ForgeResourcesService {
-  private gitlabApi: any;
+export default defineEventHandler(async (event: H3Event) => {
+  const query = getQuery(event);
+  const page = query.page || 1;
+  const perPage = query.perPage || 30;
+  const searchQuery = query.query || "";
 
-  constructor() {
-    this.gitlabApi = new Gitlab({
-      host: "https://forge.apps.education.fr/",
-      // Si nécessaire, ajoutez un jeton d'accès privé ici
-      // token: 'votre_token_d_acces_prive',
+  try {
+    return await ky("http://localhost:3333/api/v1/resources", {
+      searchParams: {
+        page: Number(page), // Convert to number
+        perPage: Number(perPage), // Convert to number
+        query: String(searchQuery),
+      },
+    }).json();
+  } catch (error: any) {
+    throw createError({
+      statusCode: error.response?.status || 500,
+      statusMessage: error.message,
     });
   }
-
-  async getProjects(page = 1, perPage = 30, searchQuery = "") {
-    try {
-      const response = await this.gitlabApi.Projects.all({
-        pagination: "offset",
-        page,
-        perPage,
-        showExpanded: true,
-        search: searchQuery,
-        searchNamespaces: true,
-      });
-
-      return {
-        data: response,
-        // Ajout de paginationInfo uniquement si nécessaire
-        // Notez que Gitbeaker peut ne pas retourner les headers comme axios
-        paginationInfo: {
-          total: response.headers?.["x-total"],
-          totalPages: response.headers?.["x-total-pages"],
-          nextPage: response.headers?.["x-next-page"],
-          prevPage: response.headers?.["x-prev-page"],
-          perPage: response.headers?.["x-per-page"],
-          currentPage: response.headers?.["x-page"],
-        },
-      };
-    } catch (error: any) {
-      throw new Error(
-        error.response?.data?.message || "Failed to fetch projects",
-      );
-    }
-  }
-}
-
-export default new ForgeResourcesService();
+});

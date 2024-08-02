@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import {onMounted, ref, watch} from "vue";
+import { onMounted, ref, watch } from "vue";
 import ResourceContainer from "~/components/resource/Container.vue";
 import ResearchContainer from "~/components/research/Container.vue";
-import type {GitLabProject} from "~/models";
-import {convertToResource} from "~/utils/convert";
-import type {Resource} from "#common/resource";
+import type { Resource } from "#common/resource";
 
 const resources = ref<Resource[]>([]);
-const repositories = ref<GitLabProject[]>([]);
 const page = ref(1);
 const perPage = 30;
 const totalItems = ref(0);
@@ -17,33 +14,32 @@ const queryTime = ref(0);
 const resultCount = ref(0);
 
 interface ApiResponse {
-  data: GitLabProject[];
+  data: Resource[];
   paginationInfo: {
     total: number;
   };
 }
 
-const fetchRepositories = async () => {
+const fetchResources = async () => {
   loading.value = true;
   const startTime = performance.now();
 
   try {
-    const response = await $fetch<ApiResponse>("/api/get-repositories", {
+    const response = await $fetch<ApiResponse>("/api/get-resources", {
       params: {
-        page: page.value,
-        perPage: perPage,
+        page: Number(page.value),
+        perPage: Number(perPage),
         query: searchParams.value.query,
       },
     });
-    repositories.value = response.data;
-    resources.value = response.data.map(convertToResource);
+    resources.value = response.data;
     totalItems.value = response.paginationInfo.total;
-    resultCount.value = response.data.length; // Set result count
+    resultCount.value = response.data.length;
   } catch (error) {
-    console.error("Error fetching repositories:", error);
+    console.error("Error fetching resources:", error);
   } finally {
-    const endTime = performance.now(); // End timer
-    queryTime.value = (endTime - startTime) / 1000; // Calculate query time in seconds
+    const endTime = performance.now();
+    queryTime.value = (endTime - startTime) / 1000;
     loading.value = false;
   }
 };
@@ -53,12 +49,12 @@ const query = ref("");
 const handleSearch = (params: { query: string }) => {
   searchParams.value = params;
   page.value = 1;
-  fetchRepositories();
+  fetchResources();
 };
 
-onMounted(fetchRepositories);
+onMounted(fetchResources);
 
-watch(page, fetchRepositories);
+watch(page, fetchResources);
 </script>
 
 <template>
@@ -85,15 +81,15 @@ watch(page, fetchRepositories);
       <template #results>
         <div v-if="!loading" class="mt-2 text-xs text-gray-500">
           <p>
-            {{ $t("utils.results_count", {count: totalItems}) }} ({{
-              $t("utils.query_time", {time: queryTime.toFixed(2)})
+            {{ $t("utils.results_count", { count: totalItems }) }} ({{
+              $t("utils.query_time", { time: queryTime.toFixed(2) })
             }})
           </p>
         </div>
       </template>
     </ResearchContainer>
 
-    <UDivider class="my-2"/>
+    <UDivider class="my-2" />
 
     <ResourceContainer v-if="!loading">
       <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
@@ -114,7 +110,7 @@ watch(page, fetchRepositories);
 
     <ResourceContainer v-else>
       <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
-        <ResourceSkeleton v-for="i in 10" :key="i"/>
+        <ResourceSkeleton v-for="i in 10" :key="i" />
       </UContainer>
     </ResourceContainer>
   </div>
