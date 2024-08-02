@@ -1,64 +1,43 @@
 <script lang="ts" setup>
-import {onMounted, ref, watch} from "vue";
+import { ref, watch } from "vue";
 import ResourceContainer from "~/components/resource/Container.vue";
 import ResearchContainer from "~/components/research/Container.vue";
-import type {GitLabProject} from "~/models";
-import {convertToResource} from "~/utils/convert";
-import type {Resource} from "#common/resource";
-
-const resources = ref<Resource[]>([]);
-const repositories = ref<GitLabProject[]>([]);
-const page = ref(1);
-const perPage = 30;
-const totalItems = ref(0);
-const searchParams = ref({ query: "" });
-const loading = ref(true);
-const queryTime = ref(0);
-const resultCount = ref(0);
+import type { Resource } from "#common/resource";
 
 interface ApiResponse {
-  data: GitLabProject[];
+  data: Resource[];
   paginationInfo: {
     total: number;
   };
 }
 
-const fetchRepositories = async () => {
-  loading.value = true;
-  const startTime = performance.now();
+const page = ref(1);
+const perPage = 30;
+const queryParam = ref("");
 
-  try {
-    const response = await $fetch<ApiResponse>("/api/get-repositories", {
-      params: {
-        page: page.value,
-        perPage: perPage,
-        query: searchParams.value.query,
-      },
-    });
-    repositories.value = response.data;
-    resources.value = response.data.map(convertToResource);
-    totalItems.value = response.paginationInfo.total;
-    resultCount.value = response.data.length; // Set result count
-  } catch (error) {
-    console.error("Error fetching repositories:", error);
-  } finally {
-    const endTime = performance.now(); // End timer
-    queryTime.value = (endTime - startTime) / 1000; // Calculate query time in seconds
-    loading.value = false;
-  }
-};
+const { data, status, refresh } = useFetch<ApiResponse>('/api/get-resources', {
+  params: computed(() => ({
+    page: page.value,
+    perPage: perPage,
+    query: queryParam.value,
+  })),
+  immediate: true,
+});
+const pending = ref(status.value === "pending");
 
-const query = ref("");
+const resources = computed(() => data.value?.data || []);
+const totalItems = computed(() => data.value?.paginationInfo.total || 0);
 
-const handleSearch = (params: { query: string }) => {
-  searchParams.value = params;
+const query = ref("")
+const handleSearch = (q: string) => {
+  queryParam.value = q;
   page.value = 1;
-  fetchRepositories();
+  refresh();
 };
 
-onMounted(fetchRepositories);
-
-watch(page, fetchRepositories);
+watch(page, () => {
+  refresh();
+});
 </script>
 
 <template>
@@ -71,52 +50,54 @@ watch(page, fetchRepositories);
               :placeholder="$t('utils.simpleSearch')"
               :ui="{ placeholder: 'dark:placeholder-gray-400' }"
               size="lg"
-              @keyup.enter="handleSearch({ query })"
+              @keyup.enter="handleSearch(query)"
           />
         </UFormGroup>
         <UButton
-            :loading="loading"
+            :loading="status === 'pending'"
             icon="i-heroicons-magnifying-glass"
             size="lg"
-            @click="handleSearch({ query })"
+            @click="handleSearch(query)"
         />
       </template>
 
       <template #results>
-        <div v-if="!loading" class="mt-2 text-xs text-gray-500">
-          <p>
-            {{ $t("utils.results_count", {count: totalItems}) }} ({{
-              $t("utils.query_time", {time: queryTime.toFixed(2)})
-            }})
-          </p>
-        </div>
+        <ClientOnly>
+          <div v-if="!pending" class="mt-2 text-xs text-gray-500">
+            <p>
+              {{ $t("utils.results_count", { count: totalItems }) }}
+            </p>
+          </div>
+        </ClientOnly>
       </template>
     </ResearchContainer>
 
-    <UDivider class="my-2"/>
+    <UDivider class="my-2" />
 
-    <ResourceContainer v-if="!loading">
-      <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
-        <ResourceCard
-            v-for="resource in resources"
-            :key="resource.id"
-            :resource="resource"
+    <ClientOnly>
+      <ResourceContainer v-if="!pending">
+        <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+          <ResourceCard
+              v-for="resource in resources"
+              :key="resource.id"
+              :resource="resource"
+          />
+        </UContainer>
+        <UPagination
+            v-model="page"
+            :page-count="30"
+            :total="totalItems"
+            show-first
+            show-last
         />
-      </UContainer>
-      <UPagination
-          v-model="page"
-          :page-count="30"
-          :total="totalItems"
-          show-first
-          show-last
-      />
-    </ResourceContainer>
+      </ResourceContainer>
 
-    <ResourceContainer v-else>
-      <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
-        <ResourceSkeleton v-for="i in 10" :key="i"/>
-      </UContainer>
-    </ResourceContainer>
+      <ResourceContainer v-if="pending">
+        <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+          <ResourceSkeleton v-for="i in 10" :key="i" />
+        </UContainer>
+      </ResourceContainer>
+    </ClientOnly>
   </div>
 </template>
 
