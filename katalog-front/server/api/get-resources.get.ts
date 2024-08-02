@@ -35,7 +35,7 @@ class ForgeResourcesService {
           currentPage: response.headers?.["x-page"],
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(
         error.response?.data?.message || "Failed to fetch projects",
       );

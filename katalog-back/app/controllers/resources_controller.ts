@@ -10,23 +10,27 @@ import { convertToResource } from '../utils/convert.js'
 
 export default class ResourcesController {
   async index({ request, response }: HttpContext) {
-    // Request Forge resources
     try {
-      // TODO Add management of pagination
-      const page = request.input('page', 1)
-      const perPage = request.input('perPage', 30)
-      const searchQuery = request.input('query', '')
+      const page = request.input('page', 1);
+      const perPage = request.input('perPage', 30);
+      const searchQuery = request.input('query', '');
 
-      const result = await ForgeResourcesService.getProjects(page, perPage, searchQuery)
-      const forgeResources: ForgeResource[] = result.data
+      const result = await ForgeResourcesService.getProjects(page, perPage, searchQuery);
+      const forgeResources: ForgeResource[] = result.data;
 
       // Convert Forge resources to resources
       const resources: Resource[] = forgeResources.map((project) =>
         convertToResource(project, Source.FORGE)
-      )
-      return response.json(resources)
+      );
+
+      // Construct the response
+      const paginationInfo = {
+        total: result.paginationInfo.total,
+      };
+
+      return response.json({ data: resources, paginationInfo });
     } catch (error) {
-      return response.status(500).json({ message: error.message })
+      return response.status(500).json({ message: error.message });
     }
   }
 
