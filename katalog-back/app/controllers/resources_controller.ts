@@ -5,17 +5,24 @@ import ForgeResourcesService from '#services/forge_resources_service'
 import { Resource, Source } from '#models/resource'
 import { ForgeResource } from '#models/forge_resource'
 import { convertToResource } from '../utils/convert.js'
+import { inject } from '@adonisjs/core'
 
 // TODO : Make resources controller gather all types of resources (Forge, Elaastic)
 
+@inject()
 export default class ResourcesController {
+
+  constructor(protected forgeService: ForgeResourcesService) {
+  }
+
+
   async index({ request, response }: HttpContext) {
     try {
       const page = request.input('page', 1);
       const perPage = request.input('perPage', 30);
       const searchQuery = request.input('query', '');
 
-      const result = await ForgeResourcesService.getProjects(page, perPage, searchQuery);
+      const result = await this.forgeService.getProjects(page, perPage, searchQuery);
       const forgeResources: ForgeResource[] = result.data;
 
       // Convert Forge resources to resources

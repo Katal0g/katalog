@@ -1,43 +1,51 @@
-import axios, { AxiosInstance } from 'axios'
+import ky from 'ky';
+import {ForgeResource} from "#models/forge_resource";
 
-class ForgeResourcesService {
-  private axiosInstance: AxiosInstance
+interface ForgeReturnType {
+  data: ForgeResource[],
+  paginationInfo: {
+    total: number | null,
+  }
+}
+
+export default class ForgeResourcesService {
+  private kyInstance: typeof ky
 
   constructor() {
-    this.axiosInstance = axios.create({
-      baseURL: 'https://forge.apps.education.fr/',
+    this.kyInstance = ky.create({
+      prefixUrl: 'https://forge.apps.education.fr/',
       headers: {
         'Content-Type': 'application/json',
       },
     })
   }
 
-  async getProjects(page = 1, perPage = 30, searchQuery = '') {
+  async getProjects(page = 1, perPage = 30, searchQuery = ''): Promise<ForgeReturnType> {
     try {
-      const response = await this.axiosInstance.get('/api/v4/projects', {
-        params: {
-          page,
+      const response = await this.kyInstance.get('api/v4/projects', {
+        searchParams: {
+          page: page,
           per_page: perPage,
           search: searchQuery,
-          simple: true,
+          simple: 'true',
         },
-      })
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data : ForgeResource[] = await response.json();
+      const headers = response.headers;
 
       return {
-        data: response.data,
+        data,
         paginationInfo: {
-          total: response.headers['x-total'],
-          totalPages: response.headers['x-total-pages'],
-          nextPage: response.headers['x-next-page'],
-          prevPage: response.headers['x-prev-page'],
-          perPage: response.headers['x-per-page'],
-          currentPage: response.headers['x-page'],
+          total: Number(headers.get('x-total')),
         },
       }
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch projects')
+      const errorJson = await error.response.json();
+      throw new Error(errorJson.message || 'Failed to fetch projects');
     }
   }
 }
-
-export default new ForgeResourcesService()

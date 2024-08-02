@@ -1,11 +1,11 @@
-import axios, { AxiosInstance } from 'axios'
+import ky from 'ky';
 
-class ElaasticResourcesService {
-  private axiosInstance: AxiosInstance
+export default class ElaasticResourcesService {
+  private kyInstance: typeof ky
 
   constructor() {
-    this.axiosInstance = axios.create({
-      baseURL: 'http://localhost:3333/api/v1', // Changez l'URL de base si nécessaire
+    this.kyInstance = ky.create({
+      prefixUrl: 'https://CHANGEIT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -14,12 +14,9 @@ class ElaasticResourcesService {
 
   async getAllResources() {
     try {
-      const response = await this.axiosInstance.get('/elaasticResources')
-      return response.data
+      return await this.kyInstance.get('/elaasticResources')
     } catch (error) {
       throw new Error(error.response.data.message || 'Failed to fetch resources')
     }
   }
 }
-
-export default new ElaasticResourcesService()
