@@ -15,6 +15,14 @@ services:
       - mysql_data:/var/lib/mysql         # Monte un volume pour la persistance des données
     networks:
       - katalog_network                   # Réseau Docker
+  rabbit-mq:
+    image: rabbitmq:3-management
+    container_name: katalog_rabbitmq
+    ports:
+      - "5672:5672"                       # Expose le port 5672
+      - "15672:15672"                     # Expose le port 15672
+    networks:
+      - katalog_network                   # Réseau Docker
 
 networks:
   katalog_network:
