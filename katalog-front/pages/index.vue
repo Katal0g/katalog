@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 import ResourceContainer from "~/components/resource/Container.vue";
 import ResearchContainer from "~/components/research/Container.vue";
-import type { Resource } from "#common/resource";
+import type { Resource } from "~/models";
 
 interface ApiResponse {
   data: Resource[];
@@ -15,7 +15,7 @@ const page = ref(1);
 const perPage = 30;
 const queryParam = ref("");
 
-const { data, status, refresh } = useFetch<ApiResponse>('/api/get-resources', {
+const { data, status, refresh } = useFetch<ApiResponse>("/api/get-resources", {
   params: computed(() => ({
     page: page.value,
     perPage: perPage,
@@ -28,7 +28,7 @@ const pending = ref(status.value === "pending");
 const resources = computed(() => data.value?.data || []);
 const totalItems = computed(() => data.value?.paginationInfo.total || 0);
 
-const query = ref("")
+const query = ref("");
 const handleSearch = (q: string) => {
   queryParam.value = q;
   page.value = 1;
@@ -46,18 +46,18 @@ watch(page, () => {
       <template #searchBar>
         <UFormGroup class="w-full">
           <UInput
-              v-model="query"
-              :placeholder="$t('utils.simpleSearch')"
-              :ui="{ placeholder: 'dark:placeholder-gray-400' }"
-              size="lg"
-              @keyup.enter="handleSearch(query)"
+            v-model="query"
+            :placeholder="$t('utils.simpleSearch')"
+            :ui="{ placeholder: 'dark:placeholder-gray-400' }"
+            size="lg"
+            @keyup.enter="handleSearch(query)"
           />
         </UFormGroup>
         <UButton
-            :loading="status === 'pending'"
-            icon="i-heroicons-magnifying-glass"
-            size="lg"
-            @click="handleSearch(query)"
+          :loading="status === 'pending'"
+          icon="i-heroicons-magnifying-glass"
+          size="lg"
+          @click="handleSearch(query)"
         />
       </template>
 
@@ -76,24 +76,28 @@ watch(page, () => {
 
     <ClientOnly>
       <ResourceContainer v-if="!pending">
-        <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+        <UContainer
+          class="flex flex-wrap justify-center gap-4 max-w-7xl w-full"
+        >
           <ResourceCard
-              v-for="resource in resources"
-              :key="resource.id"
-              :resource="resource"
+            v-for="resource in resources"
+            :key="resource.id"
+            :resource="resource"
           />
         </UContainer>
         <UPagination
-            v-model="page"
-            :page-count="30"
-            :total="totalItems"
-            show-first
-            show-last
+          v-model="page"
+          :page-count="30"
+          :total="totalItems"
+          show-first
+          show-last
         />
       </ResourceContainer>
 
       <ResourceContainer v-if="pending">
-        <UContainer class="flex flex-wrap justify-center gap-4 max-w-7xl w-full">
+        <UContainer
+          class="flex flex-wrap justify-center gap-4 max-w-7xl w-full"
+        >
           <ResourceSkeleton v-for="i in 10" :key="i" />
         </UContainer>
       </ResourceContainer>

@@ -43,7 +43,6 @@ export const subjectIcons: Record<Subject, string> = {
   Technologie: "i-heroicons-cog",
 };
 
-
 export type GitLabProject = {
   id: number;
   description: string;
@@ -76,3 +75,19 @@ type Namespace = {
   avatar_url: string | null;
   web_url: string;
 };
+
+export type Resource = {
+  id: number;
+  title: string;
+  description: string;
+  lastUpdated: Date;
+  author: string;
+  link?: string;
+  tags?: Tag[];
+  source: Source;
+};
+
+export enum Source {
+  ELAASTIC = "elaastic",
+  FORGE = "forge",
+}
