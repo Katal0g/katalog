@@ -14,9 +14,8 @@ export default class AppProvider {
       const conn = await amqp.connect()
       const ch = await conn.channel()
       const q = await ch.queue('elaastic')
-      const consumer = await q.subscribe({ noAck: true }, async (msg) => {
+      await q.subscribe({ noAck: true }, async (msg) => {
         console.log(msg.bodyToString())
-        await consumer.cancel()
       })
     } catch (e) {
       console.error('ERROR', e)
