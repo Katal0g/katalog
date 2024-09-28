@@ -2,7 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import ElaasticResource from '#models/elaastic_resource'
 import ForgeResourcesService from '#services/forge_resources_service'
 import { Resource, Source } from '#models/resource'
-import { ForgeResource } from '#models/forge_resource'
+// import { ForgeResource } from '#models/forge_resource'
 import { convertToResource } from '../utils/convert.js'
 import { inject } from '@adonisjs/core'
 
@@ -49,8 +49,8 @@ export default class ResourcesController {
     }
   }
 
-  async show({ params, response }: HttpContext) {
-    const resource = await ElaasticResource.findOrFail(params.id)
-    return response.json(resource)
-  }
+  // async show({ params, response }: HttpContext) {
+  //   const resource = await ElaasticResource.findOrFail(params.id)
+  //   return response.json(resource)
+  // }
 }
