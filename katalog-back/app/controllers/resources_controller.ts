@@ -28,7 +28,9 @@ export default class ResourcesController {
       */
       const elaastic = await ElaasticResource.query()
         .where('public', true)
-        .where('title', 'like', `%${searchQuery}%`)
+        .where((q) => {
+          q.where('title', 'LIKE', `%${searchQuery}%`).orWhere('author', 'LIKE', `%${searchQuery}%`)
+        })
         .paginate(page, perPage)
 
       //Convert elaastic resources to resources
