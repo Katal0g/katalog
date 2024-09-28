@@ -3,7 +3,7 @@ import path from "node:path";
 
 export default defineNuxtConfig({
   alias: {
-    "#common": "../../common"
+    "#common": "../../common",
   },
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
   ],
+  ssr: false,
   ui: {
     icons: ["mdi", "heroicons"],
   },

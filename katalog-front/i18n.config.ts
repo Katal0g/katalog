@@ -27,6 +27,7 @@ export default defineI18nConfig(() => ({
         required: "Required",
         results_count: "{count} result | {count} results",
         query_time: "in {time}s",
+        no_results: "No results 😔",
       },
       helpPage: {
         intro:
@@ -68,6 +69,7 @@ export default defineI18nConfig(() => ({
         required: "Obligatoire",
         results_count: "{count} résultat | {count} résultats",
         query_time: "{time}s",
+        no_results: "Aucun résultat 😔",
       },
       helpPage: {
         intro:
