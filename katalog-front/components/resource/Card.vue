@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Resource} from "#common/resource";
+import type { Resource } from "#common/resource";
 
 const props = defineProps({
   resource: {
