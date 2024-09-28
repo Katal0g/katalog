@@ -18,17 +18,27 @@ export default class ResourcesController {
       const perPage = request.input('perPage', 30)
       const searchQuery = request.input('query', '')
 
-      const result = await this.forgeService.getProjects(page, perPage, searchQuery)
-      const forgeResources: ForgeResource[] = result.data
-
-      // Convert Forge resources to resources
+      /*
+      // const result = await this.forgeService.getProjects(page, perPage, searchQuery)
+      // const forgeResources: ForgeResource[] = result.data
+      // Convert Forge and Elaastic resources to resources
       const resources: Resource[] = forgeResources.map((project) =>
         convertToResource(project, Source.FORGE)
       )
+      */
+      const elaastic = await ElaasticResource.query()
+        .where('public', true)
+        .where('title', 'like', `%${searchQuery}%`)
+        .paginate(page, perPage)
+
+      //Convert elaastic resources to resources
+      const resources: Resource[] = elaastic
+        .all()
+        .map((resource) => convertToResource(resource, Source.ELAASTIC))
 
       // Construct the response
       const paginationInfo = {
-        total: result.paginationInfo.total,
+        total: elaastic.total,
       }
 
       return response.json({ data: resources, paginationInfo })
