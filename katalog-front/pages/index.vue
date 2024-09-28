@@ -14,8 +14,10 @@ interface ApiResponse {
 const page = ref(1);
 const perPage = 30;
 const queryParam = ref("");
+const runtimeConfig = useRuntimeConfig();
 
-const { data, status, refresh } = useFetch<ApiResponse>("/api/get-resources", {
+const { data, status, refresh } = useFetch<ApiResponse>("/resources", {
+  baseURL: runtimeConfig.public.BACK_URL as string,
   params: computed(() => ({
     page: page.value,
     perPage: perPage,
