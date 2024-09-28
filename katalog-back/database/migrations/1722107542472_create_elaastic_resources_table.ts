@@ -7,12 +7,13 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('title', 255).notNullable()
-      table.text('description')
       table.string('author', 255)
       table.text('link').notNullable()
-      table.text('tags') // Assuming tags are stored as a string
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
+      table.boolean('public').defaultTo(false)
+      table.string('elaastic_uuid', 255).notNullable()
+      table.timestamp('elaastic_updated_at', { useTz: true })
     })
   }
 
