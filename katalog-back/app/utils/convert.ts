@@ -1,9 +1,23 @@
+import ElaasticResource from '#models/elaastic_resource'
 import { ForgeResource } from '#models/forge_resource'
-// TODO : Correct import using common
 import { Resource, Source, Tag } from '#models/resource'
 
-export const convertToResource = (forgeResource: ForgeResource, source: Source): Resource => {
-  const tags: Tag[] = forgeResource.tag_list
+export const convertToResource = (
+  forgeResource: ForgeResource | ElaasticResource,
+  source: Source
+): Resource => {
+  switch (source) {
+    case Source.FORGE:
+      return convertForgeResource(forgeResource as ForgeResource)
+    case Source.ELAASTIC:
+      return convertElaasticResource(forgeResource as ElaasticResource)
+    default:
+      throw new Error('Unknown source')
+  }
+}
+
+const convertForgeResource = (forgeResource: ForgeResource): Resource => {
+  const tags: Tag[] = forgeResource.tag_list || [] // Ensure default value
 
   return {
     id: forgeResource.id,
@@ -13,6 +27,18 @@ export const convertToResource = (forgeResource: ForgeResource, source: Source):
     author: forgeResource.namespace.name,
     link: forgeResource.web_url,
     tags,
-    source: source,
+    source: Source.FORGE,
+  }
+}
+
+const convertElaasticResource = (elaasticResource: ElaasticResource): Resource => {
+  return {
+    id: elaasticResource.id,
+    title: elaasticResource.title,
+    author: elaasticResource.author,
+    description: '',
+    lastUpdated: elaasticResource.elaasticUpdatedAt.toJSDate(),
+    link: elaasticResource.link,
+    source: Source.ELAASTIC,
   }
 }

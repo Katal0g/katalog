@@ -8,9 +8,6 @@ export default class ElaasticResource extends BaseModel {
   @column()
   declare title: string
 
-  @column()
-  declare description: string
-
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -23,7 +20,12 @@ export default class ElaasticResource extends BaseModel {
   @column()
   declare link: string
 
-  // TODO check tags storing format
   @column()
-  declare tags: string
+  declare public: boolean
+
+  @column()
+  declare elaasticUUID: string
+
+  @column.dateTime()
+  declare elaasticUpdatedAt: DateTime
 }
