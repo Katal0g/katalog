@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Resource } from "#common/resource";
+import type { Resource } from "~/models";
 
 const props = defineProps({
   resource: {
@@ -108,7 +108,7 @@ const detailedDateTime = computed(() => {
       <UButton
         icon="i-heroicons-arrow-up-right-20-solid"
         class="h-10 flex-grow justify-center"
-        :label="$t('researchPage.goToResource')"
+        :label="$t('researchPage.importResource')"
         variant="soft"
         target="_blank"
         trailing
