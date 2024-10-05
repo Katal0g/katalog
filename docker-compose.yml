@@ -1,9 +1,6 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:9.0
-    container_name: katalog_mysql
     environment:
       MYSQL_ROOT_PASSWORD: root_password  # Mot de passe root pour MySQL
       MYSQL_DATABASE: katalog_db          # Nom de la base de données
@@ -17,7 +14,6 @@ services:
       - katalog_network                   # Réseau Docker
   rabbit-mq:
     image: rabbitmq:3-management
-    container_name: katalog_rabbitmq
     ports:
       - "5672:5672"                       # Expose le port 5672
       - "15672:15672"                     # Expose le port 15672
@@ -26,8 +22,6 @@ services:
 
 networks:
   katalog_network:
-    driver: bridge
 
 volumes:
   mysql_data:
-    driver: local
