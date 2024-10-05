@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.boolean('public').defaultTo(false)
       table.string('elaastic_uuid', 255).notNullable()
       table.timestamp('elaastic_updated_at', { useTz: true })
+      table.text('description').nullable()
     })
   }
 

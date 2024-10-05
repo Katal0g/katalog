@@ -1,12 +1,12 @@
 export type Resource = {
   id: number
   title: string
-  description: string
   lastUpdated: Date
   author: string
+  source: Source
+  description?: string | null
   link?: string
   tags?: Tag[]
-  source: Source
 }
 
 export type Tag = string
