@@ -32,13 +32,19 @@ const convertForgeResource = (forgeResource: ForgeResource): Resource => {
 }
 
 const convertElaasticResource = (elaasticResource: ElaasticResource): Resource => {
-  return {
+  const resource: Resource = {
     id: elaasticResource.id,
     title: elaasticResource.title,
     author: elaasticResource.author,
-    description: '',
     lastUpdated: elaasticResource.elaasticUpdatedAt.toJSDate(),
     link: elaasticResource.link,
     source: Source.ELAASTIC,
   }
+
+  // Conditionally add 'description' only if it's not null or undefined
+  if (elaasticResource.description && elaasticResource.description !== 'null') {
+    resource.description = elaasticResource.description
+  }
+
+  return resource
 }

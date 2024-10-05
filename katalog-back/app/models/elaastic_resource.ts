@@ -28,4 +28,7 @@ export default class ElaasticResource extends BaseModel {
 
   @column.dateTime()
   declare elaasticUpdatedAt: DateTime
+
+  @column()
+  declare description: string | null
 }

@@ -11,7 +11,7 @@ export default defineI18nConfig(() => ({
         search: "Search",
         use: "Use",
         lastUpdated: "Last updated",
-        goToResource: "Go to resource",
+        importResource: "Import resource",
         noDescription: "No description 😔",
       },
       scholar: {
@@ -53,7 +53,7 @@ export default defineI18nConfig(() => ({
         search: "Rechercher",
         use: "Utiliser",
         lastUpdated: "Dernière mise à jour",
-        goToResource: "Aller à la ressource",
+        importResource: "Importer la ressource",
         noDescription: "Pas de description 😔",
       },
       scholar: {

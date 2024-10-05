@@ -1,4 +1,5 @@
 import ElaasticResourcesService from '#services/elaastic_resources_service'
+import env from '#start/env'
 import { ApplicationService } from '@adonisjs/core/types'
 import { AMQPClient } from '@cloudamqp/amqp-client'
 
@@ -7,10 +8,10 @@ export default class AppProvider {
 
   async start() {
     try {
-      const amqp = new AMQPClient('amqp://localhost')
+      const amqp = new AMQPClient(`${env.get('AMQP_HOST')}`)
       const conn = await amqp.connect()
       const ch = await conn.channel()
-      const q = await ch.queue('elaastic')
+      const q = await ch.queue(env.get('RABBITMQ_ELAASTIC_QUEUE'))
       const e = new ElaasticResourcesService()
 
       await q.subscribe({ noAck: true }, async (msg) => {

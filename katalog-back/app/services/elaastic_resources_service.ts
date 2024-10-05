@@ -1,27 +1,36 @@
 import ElaasticResource from '#models/elaastic_resource'
 import { DateTime } from 'luxon'
 
+export interface ElaasticMessage {
+  action: 'publicize' | 'privatize' | 'delete'
+  data: PublicizeResourceInput | PrivatizeResourceInput
+}
+
+export interface PrivatizeResourceInput {
+  uuid: string
+}
+
 export interface PublicizeResourceInput {
   title: string
   owner: string
-  lastUpdated: string // Format: 'YYYY-MM-DD HH:mm:ss'
+  last_updated: string
   uuid: string
   link: string
+  description?: string
 }
 
 export default class ElaasticResourcesService {
   async handleRabbitMessage(message: string) {
     try {
       const parsedMessage = JSON.parse(message)
-      const { uuid, title, owner, last_updated, private: isPrivate, link } = parsedMessage
-      console.log('Parsed message:', parsedMessage)
+      const { action, data } = parsedMessage
 
-      if (isPrivate !== undefined) {
-        // If private field is present, it's a privatization message
-        await this.privatizeResource(uuid)
-      } else {
-        // Else, it's a publicization message
-        await this.publicizeResource({ title, owner, lastUpdated: last_updated, uuid, link })
+      if (action === 'publicize') {
+        await this.publicizeResource(data)
+      } else if (action === 'privatize') {
+        await this.privatizeResource(data.uuid)
+      } else if (action === 'delete') {
+        await this.deleteResource(data.uuid)
       }
     } catch (error) {
       console.error('Failed to handle RabbitMQ message:', error)
@@ -29,25 +38,30 @@ export default class ElaasticResourcesService {
   }
 
   async publicizeResource(resourceData: PublicizeResourceInput) {
-    const { title, owner, lastUpdated, uuid, link } = resourceData
-
+    const { title, owner, last_updated, uuid, link, description } = resourceData
     try {
       const resource = await ElaasticResource.query().where('elaastic_uuid', uuid).first()
 
-      const elaasticUpdatedAt = parseLastUpdated(lastUpdated)
-      console.log('Parsed date:', elaasticUpdatedAt)
+      // TODO: elaastic is sending last_updated in CEST/CET timezone, we need to convert it to UTC
+      const inputZone = 'Europe/Berlin'
+
+      // last_updated will arrive with CEST or CET timezone, so we need to convert it to UTC
+      let elaasticUpdatedAt = DateTime.fromSQL(last_updated, { zone: inputZone }).toUTC()
 
       if (resource) {
         resource.title = title
         resource.author = owner
-        resource.elaasticUpdatedAt = elaasticUpdatedAt // Set the parsed date
+        resource.elaasticUpdatedAt = elaasticUpdatedAt
         resource.public = true
+        resource.link = link
+        resource.description = description || null
 
         await resource.save()
       } else {
         await ElaasticResource.create({
           title,
           link,
+          description,
           elaasticUpdatedAt,
           elaasticUUID: uuid,
           author: owner,
@@ -73,21 +87,18 @@ export default class ElaasticResourcesService {
       console.error('Failed to privatize resource:', error)
     }
   }
-}
 
-const parseLastUpdated = (lastUpdated: string) => {
-  // Essayer de parser le format de date
-  let updatedAt = DateTime.fromFormat(lastUpdated, 'EEE MMM dd HH:mm:ss ZZZ Z', { locale: 'en' })
+  async deleteResource(uuid: string) {
+    try {
+      const resource = await ElaasticResource.query().where('elaastic_uuid', uuid).first()
 
-  // Si invalide, essayer de parser en ISO format
-  if (!updatedAt.isValid) {
-    updatedAt = DateTime.fromSQL(lastUpdated)
+      if (resource) {
+        await resource.delete()
+      } else {
+        console.error(`Resource with globalId ${uuid} not found.`)
+      }
+    } catch (error) {
+      console.error('Failed to delete resource:', error)
+    }
   }
-
-  // Vérification de la validité
-  if (!updatedAt.isValid) {
-    throw new Error(`Invalid date format: ${lastUpdated}`)
-  }
-
-  return updatedAt
 }
