@@ -11,7 +11,7 @@ export default class AppProvider {
       const amqp = new AMQPClient(`${env.get('AMQP_HOST')}`)
       const conn = await amqp.connect()
       const ch = await conn.channel()
-      const q = await ch.queue('elaastic')
+      const q = await ch.queue(env.get('RABBITMQ_ELAASTIC_QUEUE'))
       const e = new ElaasticResourcesService()
 
       await q.subscribe({ noAck: true }, async (msg) => {

@@ -38,4 +38,5 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // MISC
   AMQP_HOST: Env.schema.string(),
+  RABBITMQ_ELAASTIC_QUEUE: Env.schema.string(),
 })
