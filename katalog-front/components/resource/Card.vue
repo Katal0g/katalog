@@ -50,20 +50,8 @@ const detailedDateTime = computed(() => {
 
           <!-- AUTHOR + DATE -->
           <div
-            class="flex flex-col text-end text-sm mt-1 text-gray-400 truncate text-ellipsis pl-2"
+            class="flex flex-col items-end text-end text-sm mt-1 text-gray-400 truncate text-ellipsis pl-2"
           >
-            <UTooltip
-              :text="$t('researchPage.author') + ' : ' + resource.author"
-            >
-              <div
-                class="flex items-center justify-end truncate text-ellipsis cursor-default"
-              >
-                <UIcon name="i-heroicons-user" class="mr-1" />
-                <span class="truncate text-ellipsis">
-                  {{ resource.author }}
-                </span>
-              </div>
-            </UTooltip>
             <div class="flex items-center justify-end">
               <UTooltip
                 :text="
@@ -80,6 +68,28 @@ const detailedDateTime = computed(() => {
                 </div>
               </UTooltip>
             </div>
+            <UTooltip
+              :text="$t('researchPage.author') + ' : ' + resource.author"
+            >
+              <div
+                class="flex items-center justify-end truncate text-ellipsis cursor-default"
+              >
+                <UIcon name="i-heroicons-user" class="mr-1" />
+                <span class="truncate text-ellipsis">
+                  {{ resource.author }}
+                </span>
+              </div>
+            </UTooltip>
+            <UTooltip :text="$t('researchPage.licence')">
+              <NuxtLink
+                class="flex items-center justify-end truncate text-ellipsis cursor-pointer"
+                to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
+                target="_blank"
+              >
+                <UIcon name="i-heroicons-newspaper" class="mr-1" />
+                <span class="truncate text-ellipsis"> CC BY-NC-SA 4.0 </span>
+              </NuxtLink>
+            </UTooltip>
           </div>
         </div>
         <div class="flex gap-2 flex-wrap mt-1 w-fit" v-if="resource.tags">

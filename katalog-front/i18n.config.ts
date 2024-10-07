@@ -13,6 +13,7 @@ export default defineI18nConfig(() => ({
         lastUpdated: "Last updated",
         importResource: "Import resource",
         noDescription: "No description 😔",
+        licence: "Licence Creative Commons BY-SA-NC 4.0",
       },
       scholar: {
         level: "Level",
@@ -55,6 +56,7 @@ export default defineI18nConfig(() => ({
         lastUpdated: "Dernière mise à jour",
         importResource: "Importer la ressource",
         noDescription: "Pas de description 😔",
+        licence: "Licence Creative Commons BY-SA-NC 4.0",
       },
       scholar: {
         level: "Niveau",
