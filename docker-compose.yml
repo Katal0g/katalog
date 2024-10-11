@@ -2,23 +2,23 @@ services:
   mysql:
     image: mysql:9.0
     environment:
-      MYSQL_ROOT_PASSWORD: root_password  # Mot de passe root pour MySQL
-      MYSQL_DATABASE: katalog_db          # Nom de la base de données
-      MYSQL_USER: katalog_user            # Utilisateur de la base de données
-      MYSQL_PASSWORD: katalog_password    # Mot de passe de l'utilisateur de la base de données
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"                       # Expose le port 3306
+      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql         # Monte un volume pour la persistance des données
+      - mysql_data:/var/lib/mysql
     networks:
-      - network                   # Réseau Docker
+      - network
   rabbit-mq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"                       # Expose le port 5672
-      - "15672:15672"                     # Expose le port 15672
+      - "5672:5672"
+      - "15672:15672"
     networks:
-      - network                   # Réseau Docker
+      - network
 
 networks:
   network:
