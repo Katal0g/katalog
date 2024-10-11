@@ -1,4 +1,4 @@
-# Katalog monorepo
+# Project
 
 ## 💻 Configuration
 
@@ -16,7 +16,7 @@ docker compose up -d
 
 Des `.env` sont nécessaires au fonctionnement de l'application (pour le `front` ET le `back`). Des `.env.example` sont disponibles avec les valeurs attendues.
 
-Lorsque ces différentes étapes sont finies, vous pouvez lancer le projet en exécutant (dans `/katalog-front` et `/katalog-back`) la commande :
+Lorsque ces différentes étapes sont finies, vous pouvez lancer le projet en exécutant (dans `/frontend` et `/backend`) la commande :
 
 ```
 npm run dev

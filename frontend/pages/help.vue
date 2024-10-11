@@ -22,7 +22,7 @@
         </h2>
         <p>{{ $t("helpPage.contact") }}</p>
         <UButton
-          to="https://github.com/Katal0g"
+          to="https://github.com/elaastic"
           target="_blank"
           variant="soft"
           size="lg"
